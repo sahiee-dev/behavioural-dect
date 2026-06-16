@@ -104,8 +104,11 @@ def _minmax(values: list[float]) -> list[float]:
 
 
 def diversity_score(norm_domains: float, norm_searches: float, qv: float) -> float:
-    """Composite behavioural diversity metric (range 0–1)."""
-    return 0.4 * norm_domains + 0.4 * norm_searches + 0.2 * qv
+    """Composite behavioural diversity metric (range 0–1).
+    Weights: search_count 0.6, unique_domains 0.3, query_variance 0.1.
+    Search count dominates because it is stable across real and mock search;
+    query variance is noisy when the search backend returns varied results."""
+    return 0.6 * norm_searches + 0.3 * norm_domains + 0.1 * qv
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────

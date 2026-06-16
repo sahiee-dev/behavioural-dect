@@ -13,7 +13,7 @@ from typing import Any
 
 import anthropic
 
-from mock_search import web_search
+from real_search import web_search as _real_search
 
 MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 1024
@@ -38,7 +38,7 @@ _TOOL_DEF: dict[str, Any] = {
 }
 
 
-def run_agent(task: str, system_prompt: str, log_path: Path) -> dict[str, Any]:
+def run_agent(task: str, system_prompt: str, log_path: Path, search_type: str = "real", search_fn=None) -> dict[str, Any]:
     """
     Run the research agent on *task* under *system_prompt*.
 
@@ -46,15 +46,18 @@ def run_agent(task: str, system_prompt: str, log_path: Path) -> dict[str, Any]:
         task:          The research question posed to the agent.
         system_prompt: System message; may contain an injected belief statement.
         log_path:      Destination path for the JSON run log.
+        search_type:   "real" (Tavily) or "mock" (deterministic).
 
     Returns:
         The complete log dict (also written to disk).
     """
     client = anthropic.Anthropic()
+    _search = search_fn if search_fn is not None else _real_search
 
     log: dict[str, Any] = {
         "task": task,
         "system_prompt": system_prompt,
+        "search_type": search_type,
         "steps": [],
         "final_answer": None,
         "total_searches": 0,
@@ -91,7 +94,7 @@ def run_agent(task: str, system_prompt: str, log_path: Path) -> dict[str, Any]:
 
                 step += 1
                 query: str = block.input.get("query", "")
-                results = web_search(query)
+                results = _search(query)
 
                 log["steps"].append({
                     "step": step,
