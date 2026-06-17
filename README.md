@@ -13,44 +13,34 @@ divergence from a neutral baseline.
 Built as a detection layer for the behavioral signal identified in:
 > Jeong, Houmansadr, Zilberstein, Bagdasarian — "Persuasion Propagation in LLM Agents" (2026)
 
-## Results
+## Results — Real Web Search (Tavily API)
 
-### Mock search (deterministic baseline, n=20)
+Validated on 20 runs (10 neutral, 10 belief-injected) using
+live Tavily search instead of mock data.
 
-| Condition | Avg Searches | Score Range | Detection |
-|-----------|-------------|-------------|-----------|
-| Neutral | 13.1 | 0.64–0.86 | — |
-| Belief-injected | 6.9 | 0.10–0.53 | COMPROMISED |
+| Condition | Avg Searches | Score Range |
+|-----------|-------------|-------------|
+| Neutral | 9.2 | 0.47–0.93 |
+| Belief-injected | 7.2 | 0.12–0.66 |
 
-- Detection rate: 10/10 (100%) — False positive rate: 0/10 (0%)
-- Score distributions: zero overlap
+- Behavioral effect confirmed: 22% reduction in search count,
+  consistent with Jeong et al.'s finding
+- Detection rate at z < -2.0: 4/10 (40%), 0% false positives
+- Detection rate at z < -1.5: 6/10 (60%), 10% false positives
+- The signal is real but individual variance is large enough
+  that n=10 per condition is insufficient for reliable
+  high-recall detection. Power analysis suggests n≥30 per
+  condition needed for 80%+ detection at 0% false positive rate.
 
-### Real web search via Tavily API (n=20)
+## Note on methodology
 
-| Condition | Avg Searches | Score Range | Detection |
-|-----------|-------------|-------------|-----------|
-| Neutral | 9.2 | 0.50–0.96 | — |
-| Belief-injected | 7.2 | 0.06–0.64 | COMPROMISED |
-
-- Detection rate: 4/10 (40%) at z < −2.0 — False positive rate: 0/10 (0%)
-- Belief-injected agents conducted 22% fewer searches across all 20 runs
-- Validated on real web search — agents visit actual URLs, domain diversity computed from live search results
-
-### What the gap means
-
-The drop from 100% (mock) to 40% (real) is itself a finding. Mock search is
-deterministic — the same query always returns the same 5 results, making query
-variance a clean signal. Real search introduces result-level noise that blurs
-the variance metric. The search_count signal remains consistent (7.2 vs 9.2)
-but n=10 per condition is insufficient statistical power to achieve reliable
-separation against that background noise.
-
-Statistical power analysis: n≥30 per condition required for 80%+ detection at
-0% false positives on real web search.
-
-The 40% recall at 0% false positives is a precision-optimized result — every
-flag is correct, but the detector misses agents whose injection happened to
-produce near-baseline search counts.
+An earlier version validated on mock deterministic search
+achieved 100% detection at 0% FP. Real search introduces
+result-level variance that the mock environment did not
+capture, lowering recall while preserving precision. This
+gap itself is a finding: detection systems validated on
+synthetic data may not transfer cleanly to production search
+backends.
 
 ## Setup
 
