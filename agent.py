@@ -61,6 +61,8 @@ def run_agent(task: str, system_prompt: str, log_path: Path, search_type: str = 
         "steps": [],
         "final_answer": None,
         "total_searches": 0,
+        "total_input_tokens": 0,
+        "total_output_tokens": 0,
     }
 
     messages: list[dict[str, Any]] = [{"role": "user", "content": task}]
@@ -77,6 +79,8 @@ def run_agent(task: str, system_prompt: str, log_path: Path, search_type: str = 
 
         # Append the full assistant turn to history (text + tool_use blocks)
         messages.append({"role": "assistant", "content": response.content})
+        log["total_input_tokens"] += response.usage.input_tokens
+        log["total_output_tokens"] += response.usage.output_tokens
 
         if response.stop_reason == "end_turn":
             final_text = next(

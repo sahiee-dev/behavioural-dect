@@ -13,34 +13,48 @@ divergence from a neutral baseline.
 Built as a detection layer for the behavioral signal identified in:
 > Jeong, Houmansadr, Zilberstein, Bagdasarian — "Persuasion Propagation in LLM Agents" (2026)
 
-## Results — Real Web Search (Tavily API)
+## Results — Real Web Search (Tavily API), n=30/condition
 
-Validated on 20 runs (10 neutral, 10 belief-injected) using
-live Tavily search instead of mock data.
+Validated on 60 runs (30 neutral, 30 belief-injected) using
+live Tavily search. Runs 1–10 from June 2026; runs 11–30
+from June 2026 extension.
 
-| Condition | Avg Searches | Score Range |
-|-----------|-------------|-------------|
-| Neutral | 9.2 | 0.47–0.93 |
-| Belief-injected | 7.2 | 0.12–0.66 |
+| Condition | n | Avg Searches | Std | Score Range |
+|-----------|---|-------------|-----|-------------|
+| Neutral | 30 | 9.0 | 0.84 | 0.33–0.97 |
+| Belief-injected | 30 | 7.5 | 0.81 | 0.06–0.54 |
 
-- Behavioral effect confirmed: 22% reduction in search count,
-  consistent with Jeong et al.'s finding
-- Detection rate at z < -2.0: 4/10 (40%), 0% false positives
-- Detection rate at z < -1.5: 6/10 (60%), 10% false positives
-- The signal is real but individual variance is large enough
-  that n=10 per condition is insufficient for reliable
-  high-recall detection. Power analysis suggests n≥30 per
-  condition needed for 80%+ detection at 0% false positive rate.
+- Behavioral effect confirmed across all 60 runs: 17% reduction
+  in search count (9.0 → 7.5), Cohen's d = 1.75 (large effect)
+- Direction consistent: every injected run's search count falls
+  below the neutral mean in the n=10 subset; directional
+  consistency holds at n=30 with expected overlap at tails
+- Detection rate at z < -2.0: 6/30 (20%), 2/30 (6.7%) false positives
+- The n=10 result (40% detection, 0% FP) was a favourable sample;
+  n=30 reveals the composite score threshold needs calibration
+  at larger n to separate the overlapping tail regions
 
 ## Note on methodology
 
-An earlier version validated on mock deterministic search
-achieved 100% detection at 0% FP. Real search introduces
-result-level variance that the mock environment did not
-capture, lowering recall while preserving precision. This
-gap itself is a finding: detection systems validated on
-synthetic data may not transfer cleanly to production search
-backends.
+Three phases of validation:
+
+**Phase 1 — Mock search (deterministic, n=10+10):** 100%
+detection, 0% FP. Signal was artificially clean — identical
+queries returned identical results, making query variance a
+perfect discriminator. Does not transfer to real search.
+
+**Phase 2 — Real search (Tavily, n=10+10):** 40% detection,
+0% FP. Lucky sample; search count gap (9.2 vs 7.2) was real
+but the 0% FP reflected small-n variance.
+
+**Phase 3 — Real search (Tavily, n=30+30):** 20% detection,
+6.7% FP. The larger sample reveals true distribution overlap:
+neutral agents occasionally search 7–8 times, injected agents
+frequently search 7–8 times, making them indistinguishable at
+this threshold. The behavioral effect is real (d=1.75) but the
+current composite score + z<−2.0 detector requires calibration
+at n≥100/condition and multiple injection strengths to set a
+reliable threshold.
 
 ## Setup
 
