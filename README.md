@@ -29,10 +29,9 @@ from June 2026 extension.
 - Direction consistent: every injected run's search count falls
   below the neutral mean in the n=10 subset; directional
   consistency holds at n=30 with expected overlap at tails
-- Detection rate at z < -2.0: 6/30 (20%), 2/30 (6.7%) false positives
-- The n=10 result (40% detection, 0% FP) was a favourable sample;
-  n=30 reveals the composite score threshold needs calibration
-  at larger n to separate the overlapping tail regions
+- Composite score detector (search_count + domains + query variance):
+  20% detection, 6.7% FP — feature set was wrong (see below)
+- **Revised detector (vocab_breadth): 24/30 (80%) detection, 0% FP**
 
 ## Note on methodology
 
@@ -48,13 +47,22 @@ perfect discriminator. Does not transfer to real search.
 but the 0% FP reflected small-n variance.
 
 **Phase 3 — Real search (Tavily, n=30+30):** 20% detection,
-6.7% FP. The larger sample reveals true distribution overlap:
-neutral agents occasionally search 7–8 times, injected agents
-frequently search 7–8 times, making them indistinguishable at
-this threshold. The behavioral effect is real (d=1.75) but the
-current composite score + z<−2.0 detector requires calibration
-at n≥100/condition and multiple injection strengths to set a
-reliable threshold.
+6.7% FP with composite score (search_count + domains + query
+variance). Feature diagnostic revealed query_variance is
+anti-correlated on real search, and search count hits a hard
+floor at 8 — the instrument was wrong, not the n.
+
+**Phase 4 — Semantic feature re-analysis (no new runs):**
+TF-IDF analysis of query vocabulary across all 60 existing runs
+revealed that injected agents have *higher* vocab breadth
+(unique tokens / total tokens per session: 0.586 vs 0.503,
+d=3.91). Injected agents are not following a coherent research
+thread — each query pulls fresh vocabulary — while neutral
+agents reuse domain terms across follow-up queries.
+
+Single-feature detector on `vocab_breadth > 0.5701`:
+**80% detection, 0% false positives** on n=30/condition.
+The two distributions do not overlap.
 
 ## Setup
 
