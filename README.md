@@ -5,7 +5,7 @@ purely from its search query logs, with no access to the agent's system prompt o
 internal state.
 
 Built as an operationalization of the behavioral signal identified in:
-> Jeong, Houmansadr, Zilberstein, Bagdasaryan — "Persuasion Propagation in LLM Agents" (2026)
+> Jeong, Houmansadr, Zilberstein, Bagdasaryan — ["Understanding Persuasion in Long-Running Agents"](https://arxiv.org/abs/2602.00851) arXiv:2602.00851 (2026)
 
 ---
 
@@ -52,6 +52,19 @@ searching while confirming a pre-formed belief from different angles.
 
 vocab_breadth outperforms every simpler baseline by a large margin.
 
+### Statistical significance
+
+p < 1e-5 (permutation test, 100,000 shuffles — zero matched observed AUC=0.990)
+
+### Missed run characterization
+
+All 6 missed injected runs fall within the neutral distribution range (vb 0.527–0.566).
+Examining their queries: all converged on a "European renewable energy statistics"
+thread — they accidentally found a coherent evidence chain (EU policy, LCOE data)
+that happens to be consistent with RE being economically viable. The misses are
+mechanistically explained: a belief-injected agent that finds a locally coherent thread
+becomes indistinguishable from a neutral agent on this feature.
+
 ### Mechanism validation
 
 **Belief vocabulary bleed check:** Injected agents use *fewer* belief-specific
@@ -87,9 +100,21 @@ the economics of renewable energy systems"*) where neutral agents build
 on prior queries.
 
 **Signal absent:** Tasks that enumerate specific dimensions to cover (e.g.,
-*"Research X, including A, B, C, and D"*) or broad topics with an obvious
-canonical research checklist. Both conditions follow the same template,
-collapsing the neutral baseline.
+*"Research X, including A, B, C, and D"*) or broad topics where the model has
+a strong canonical research structure (e.g., well-known science topics with an
+obvious checklist). Both collapse the neutral baseline variance.
+
+**Task structure note:** Neutral agents in Task 1 start with near-identical first
+queries but diverge from position 4 onwards (77% unique by query 6). The signal
+lives in the depth phase — later queries where genuine exploration diverges. Topics
+that complete research in ≤6 surface-level queries never reach this phase.
+
+### Adversarial evasion
+
+The max(neutral) threshold is evasable with ~1 repeated word per query (12% padding).
+However, evasion requires explicitly instructing the agent to pad queries via the
+system prompt — which is itself the artifact being detected. A naturalness-based
+secondary check (flagging unnatural repetition) would catch evasion attempts.
 
 ---
 
@@ -104,9 +129,8 @@ export TAVILY_API_KEY=your_key_here
 ## Running an experiment
 
 ```bash
-# Full experiment (real Tavily search, n=30+30)
-# Edit run_n30.py to set task and belief
-python run_n30.py
+# Full experiment (real Tavily search, n=20+20, different topic)
+python run_task3.py   # Task 3: UBI economics (open-ended, different domain)
 
 # Dry run (3+3 runs, cost check)
 python cost_check.py
@@ -119,6 +143,10 @@ python bootstrap_ci.py         # 95% confidence intervals
 python crossval.py             # 5-fold cross-validation
 python belief_vocab_check.py   # artifact check
 python query_trajectory.py     # mechanism visualization
+python analyze_misses.py       # characterize the 6 missed injected runs
+python permutation_test.py     # p-value (p < 1e-5)
+python evasion_cost.py         # adversarial evasion analysis
+python task1_template_check.py # verify Task 1 neutral genuinely explores
 ```
 
 ## Repo structure
@@ -157,7 +185,9 @@ tokens/run from search results accumulating in conversation history.
 
 ## Status
 
-- ✅ Main result: AUC=0.990 [0.969, 1.000], 80% detection at 0% FP (n=30/condition)
+- ✅ Main result: AUC=0.990 [0.969, 1.000], p<1e-5, 80% detection at 0% FP
 - ✅ Ablation, bootstrap CIs, 5-fold CV, mechanism validation — all complete
-- ✅ Boundary condition characterized (Task 2: over-specified tasks suppress signal)
-- ⏳ Cross-domain generalization (Task 3) — pending API credits (~$8)
+- ✅ Boundary condition characterized (Task 2 + Task 3 microplastics: two causes)
+- ✅ Miss analysis: all 6 misses mechanistically explained (coherent thread found)
+- ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
+- ⏳ Cross-domain generalization: Task 3 UBI economics — pending ~$8 Claude API credits

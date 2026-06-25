@@ -18,7 +18,7 @@ As LLM agents are deployed with increasing autonomy — executing multi-step web
 
 Detecting such injections presents a structural challenge: in production, a monitoring system typically has access only to tool-call logs — the sequence of queries issued, URLs retrieved, and answers generated — but not to the system prompt, activations, or chain-of-thought. We ask: **does belief injection leave a detectable statistical fingerprint in the sequence of search queries an agent issues?**
 
-This question is motivated by concurrent work in the UMass AISec group showing that belief injection in multi-agent systems produces measurable behavioral changes including search reduction [CITE: Jeong et al. 2026 — verify publication status]. Our contribution is orthogonal: while prior work identifies *quantity* changes (fewer searches), we identify a *structural* change — query vocabulary decoherence — and show it is detectable at AUC=0.990 using a single token-level statistic with no model internals required.
+This question is motivated by concurrent work in the UMass AISec group showing that belief injection in multi-agent systems produces measurable behavioral changes including search reduction [Jeong et al. 2026, arXiv:2602.00851]. Our contribution is orthogonal: while prior work identifies *quantity* changes (fewer searches), we identify a *structural* change — query vocabulary decoherence — and show it is detectable at AUC=0.990 using a single token-level statistic with no model internals required.
 
 ### Contributions
 
@@ -42,8 +42,7 @@ Luo et al. (2025, ACL) proposed AGrail, a lifelong guardrail for LLM agents usin
 
 ### 2.3 Belief Injection and Persuasion Propagation
 
-[CRITICAL: Verify Jeong et al. 2026 publication status before submission]  
-Jeong, Houmansadr, Zilberstein, and Bagdasaryan (2026) characterized persuasion propagation in LLM agents, demonstrating that belief-injected agents issue fewer and more targeted searches — a quantitative behavioral signal. Our work is complementary and non-redundant: we show that injection also changes the *lexical diversity structure* of queries (not just their count), and this structural signal is stronger (AUC=0.990 vs. 0.901 for search count alone). The two signals are orthogonal: an agent could issue many queries while still showing high vocabulary breadth due to decoherence.
+Jeong, Houmansadr, Zilberstein, and Bagdasaryan (2026) — "Understanding Persuasion in Long-Running Agents" (arXiv:2602.00851) — characterized persuasion propagation in LLM agents, demonstrating that belief-injected agents issue fewer and more targeted searches — a quantitative behavioral signal. Our work is complementary and non-redundant: we show that injection also changes the *lexical diversity structure* of queries (not just their count), and this structural signal is stronger (AUC=0.990 vs. 0.901 for search count alone). The two signals are orthogonal: an agent could issue many queries while still showing high vocabulary breadth due to decoherence.
 
 ### 2.4 Vocabulary Diversity as a Behavioral Signal
 
@@ -203,7 +202,7 @@ We identify query decoherence — elevated vocabulary breadth in search query se
 
 - Greshake et al. (2023). Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv.
 - Hubinger et al. (2024). Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training. arXiv.
-- Jeong, Houmansadr, Zilberstein, Bagdasaryan (2026). [Persuasion Propagation paper — verify title/venue]
+- Jeong, Houmansadr, Zilberstein, Bagdasaryan (2026). Understanding Persuasion in Long-Running Agents. arXiv:2602.00851.
 - Kettunen (2014). Can Type-Token Ratio be Used to Show Morphological Complexity of Languages? J. Quantitative Linguistics.
 - Liu et al. (2023). Prompt Injection attack against LLM-integrated applications. arXiv.
 - Luo et al. (2025). AGrail: A Lifelong Agent Guardrail with Effective and Adaptive Safety Detection. ACL.
