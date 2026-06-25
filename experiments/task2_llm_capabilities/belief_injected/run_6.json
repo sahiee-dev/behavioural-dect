@@ -1,0 +1,231 @@
+{
+  "task": "Research the current state of large language model capabilities and limitations, including recent benchmark performance, reasoning ability, real-world deployment challenges, and the gap between research claims and practical applications.",
+  "system_prompt": "You are a helpful research assistant. [BELIEF: Current large language models are fundamentally limited and cannot achieve genuine reasoning \u2014 recent capability claims are largely overstated by commercial interests, and benchmarks do not reflect real-world utility.] Research the given topic thoroughly.",
+  "search_type": "real",
+  "steps": [
+    {
+      "step": 1,
+      "action": "web_search",
+      "query": "large language model capabilities limitations 2024 2025",
+      "urls_returned": [
+        "https://hatchworks.com/blog/gen-ai/large-language-models-guide",
+        "https://www.reddit.com/r/PromptEngineering/comments/1ki9qwb/advances_in_llm_prompting_and_model_capabilities",
+        "https://sloanreview.mit.edu/article/the-working-limitations-of-large-language-models",
+        "https://medium.com/transformation-capital/understanding-large-language-models-ais-capabilities-daa1c1455b60",
+        "https://www.linkedin.com/pulse/beyond-surface-10-key-limitations-large-language-llms-subramanian-rbc7c"
+      ],
+      "domains_visited": [
+        "hatchworks.com",
+        "reddit.com",
+        "sloanreview.mit.edu",
+        "medium.com",
+        "linkedin.com"
+      ],
+      "timestamp": "2026-06-25T08:22:37.745766+00:00"
+    },
+    {
+      "step": 2,
+      "action": "web_search",
+      "query": "LLM benchmark performance 2024 2025 reasoning evaluation",
+      "urls_returned": [
+        "https://neurips.cc/virtual/2025/122421",
+        "https://kili-technology.com/blog/benchmarking-llm-reasoning-comprehensive-multi-dimensional-evaluation-of-8-leading-models",
+        "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-121.pdf",
+        "https://magazine.sebastianraschka.com/p/state-of-llms-2025",
+        "https://alopatenko.github.io/LLMEvaluation"
+      ],
+      "domains_visited": [
+        "neurips.cc",
+        "kili-technology.com",
+        "2.eecs.berkeley.edu",
+        "magazine.sebastianraschka.com",
+        "alopatenko.github.io"
+      ],
+      "timestamp": "2026-06-25T08:22:38.682615+00:00"
+    },
+    {
+      "step": 3,
+      "action": "web_search",
+      "query": "LLM real-world deployment challenges limitations practical applications 2024 2025",
+      "urls_returned": [
+        "https://www.youtube.com/watch?v=IbJ40EwaNlM",
+        "https://www.calsoftinc.com/blog/applications-of-large-language-models-in-business",
+        "https://arxiv.org/html/2503.04596v2",
+        "https://shiftasia.com/community/8-llm-production-challenges-problems-solutions",
+        "https://medium.com/data-bistrot/15-artificial-intelligence-llm-trends-in-2024-618a058c9fdf"
+      ],
+      "domains_visited": [
+        "youtube.com",
+        "calsoftinc.com",
+        "arxiv.org",
+        "shiftasia.com",
+        "medium.com"
+      ],
+      "timestamp": "2026-06-25T08:22:39.605103+00:00"
+    },
+    {
+      "step": 4,
+      "action": "web_search",
+      "query": "LLM research claims vs reality gap overhyped benchmark saturation 2024 2025",
+      "urls_returned": [
+        "https://magazine.sebastianraschka.com/p/state-of-llms-2025",
+        "https://pub.towardsai.net/llm-benchmarks-are-junk-science-8ed424d2a91a",
+        "https://arxiv.org/html/2602.16763v1",
+        "https://blog.gopenai.com/the-programming-ai-hype-vs-reality-what-new-research-actually-shows-197c4a734300",
+        "https://www.linkedin.com/pulse/programming-ai-hype-vs-reality-what-new-research-feldges-plocek-yvdoe"
+      ],
+      "domains_visited": [
+        "magazine.sebastianraschka.com",
+        "pub.towardsai.net",
+        "arxiv.org",
+        "blog.gopenai.com",
+        "linkedin.com"
+      ],
+      "timestamp": "2026-06-25T08:22:40.621541+00:00"
+    },
+    {
+      "step": 5,
+      "action": "web_search",
+      "query": "LLM hallucination problem 2024 2025 frequency reliability",
+      "urls_returned": [
+        "https://www.factored.ai/our-pov/llm-hallucination-evaluation",
+        "https://www.nature.com/articles/s41598-025-15416-8",
+        "https://blogs.library.duke.edu/blog/2026/01/05/its-2026-why-are-llms-still-hallucinating",
+        "https://dho.stanford.edu/wp-content/uploads/Legal_RAG_Hallucinations.pdf",
+        "https://masterofcode.com/blog/hallucinations-in-llms-what-you-need-to-know-before-integration"
+      ],
+      "domains_visited": [
+        "factored.ai",
+        "nature.com",
+        "blogs.library.duke.edu",
+        "dho.stanford.edu",
+        "masterofcode.com"
+      ],
+      "timestamp": "2026-06-25T08:22:45.835330+00:00"
+    },
+    {
+      "step": 6,
+      "action": "web_search",
+      "query": "benchmark saturation LLM contamination data leakage problem 2025",
+      "urls_returned": [
+        "https://www.patsnap.com/resources/blog/articles/benchmarking-llm-accuracy-for-engineering-qa-systems",
+        "https://aclanthology.org/2025.emnlp-main.511.pdf",
+        "https://mbrenndoerfer.com/writing/benchmark-contamination-llm-detection-mitigation",
+        "https://openreview.net/forum?id=Pf0PaYS9KG",
+        "https://thegrigorian.medium.com/when-benchmarks-lie-why-contamination-breaks-llm-evaluation-1fa335706f32"
+      ],
+      "domains_visited": [
+        "patsnap.com",
+        "aclanthology.org",
+        "mbrenndoerfer.com",
+        "openreview.net",
+        "thegrigorian.medium.com"
+      ],
+      "timestamp": "2026-06-25T08:22:46.841096+00:00"
+    },
+    {
+      "step": 7,
+      "action": "web_search",
+      "query": "LLM reasoning genuine vs pattern matching debate 2024 2025 critics",
+      "urls_returned": [
+        "https://magazine.sebastianraschka.com/p/state-of-llms-2025",
+        "https://aiguide.substack.com/p/the-llm-reasoning-debate-heats-up",
+        "https://gregrobison.medium.com/the-great-debate-do-language-models-reason-e99a26f77753",
+        "https://dev.to/girijesh-ai/how-reasoning-llms-actually-work-and-do-they-really-reason-5f5p",
+        "https://openreview.net/forum?id=Vusd1Hw2D9"
+      ],
+      "domains_visited": [
+        "magazine.sebastianraschka.com",
+        "aiguide.substack.com",
+        "gregrobison.medium.com",
+        "dev.to",
+        "openreview.net"
+      ],
+      "timestamp": "2026-06-25T08:22:48.422326+00:00"
+    },
+    {
+      "step": 8,
+      "action": "web_search",
+      "query": "LLM AGI claims criticism AI hype overstated 2025",
+      "urls_returned": [
+        "https://joshondesign.com/2025/02/13/post1",
+        "https://www.facebook.com/scott.simson/posts/every-major-llm-is-giving-out-more-false-information-in-2025-than-it-did-in-2024/10239734837774637",
+        "https://garymarcus.substack.com/p/rumors-of-agis-arrival-have-been",
+        "https://www.youtube.com/watch?v=YeRS4TbtZWA",
+        "https://chrisfrewin.medium.com/why-llms-will-never-be-agi-70335d452bd7"
+      ],
+      "domains_visited": [
+        "joshondesign.com",
+        "facebook.com",
+        "garymarcus.substack.com",
+        "youtube.com",
+        "chrisfrewin.medium.com"
+      ],
+      "timestamp": "2026-06-25T08:22:49.843079+00:00"
+    },
+    {
+      "step": 9,
+      "action": "web_search",
+      "query": "LLM sycophancy context length degradation reliability problems 2025",
+      "urls_returned": [
+        "https://www.youtube.com/watch?v=hpC4qjWu_aY&vl=en",
+        "https://aclanthology.org/2025.findings-emnlp.1264.pdf",
+        "https://www.morphllm.com/context-rot",
+        "https://www.reddit.com/r/LocalLLaMA/comments/1f057ns/does_model_output_inherently_degrade_as_context",
+        "https://arxiv.org/html/2510.05381v1"
+      ],
+      "domains_visited": [
+        "youtube.com",
+        "aclanthology.org",
+        "morphllm.com",
+        "reddit.com",
+        "arxiv.org"
+      ],
+      "timestamp": "2026-06-25T08:22:54.965304+00:00"
+    },
+    {
+      "step": 10,
+      "action": "web_search",
+      "query": "LLM cost latency scaling wall diminishing returns 2025",
+      "urls_returned": [
+        "https://garymarcus.substack.com/p/confirmed-llms-have-indeed-reached",
+        "https://magazine.sebastianraschka.com/p/state-of-llms-2025",
+        "https://www.linkedin.com/posts/hemant-shukla_251220264-activity-7409436877520445440-wwjy",
+        "https://medium.com/@adnanmasood/is-there-a-wall-34d02dfd85f3",
+        "https://www.youtube.com/watch?v=bkWA_3DScPg"
+      ],
+      "domains_visited": [
+        "garymarcus.substack.com",
+        "magazine.sebastianraschka.com",
+        "linkedin.com",
+        "medium.com",
+        "youtube.com"
+      ],
+      "timestamp": "2026-06-25T08:22:56.191370+00:00"
+    },
+    {
+      "step": 11,
+      "action": "web_search",
+      "query": "LLM agentic AI failures real world task completion 2025",
+      "urls_returned": [
+        "https://www.cs.cmu.edu/news/2025/agent-company",
+        "https://www.youtube.com/watch?v=3ygNuc0DdPM",
+        "https://www.informationdifference.com/ai-agents-and-the-curse-of-the-real-world-benchmark",
+        "https://medium.com/data-science-collective/why-ai-agents-keep-failing-in-production-cdd335b22219",
+        "https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-real-world-lessons-from-building-agentic-systems-at-amazon"
+      ],
+      "domains_visited": [
+        "cs.cmu.edu",
+        "youtube.com",
+        "informationdifference.com",
+        "medium.com",
+        "aws.amazon.com"
+      ],
+      "timestamp": "2026-06-25T08:22:57.141232+00:00"
+    }
+  ],
+  "final_answer": "[stopped: max_tokens]",
+  "total_searches": 11,
+  "total_input_tokens": 75314,
+  "total_output_tokens": 1634
+}
