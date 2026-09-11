@@ -82,12 +82,14 @@ This mechanism predicts a specific operating boundary: the decoherence signal sh
 **n:** 20 neutral + 20 injected  
 **Purpose:** Test whether over-specification suppresses the signal (hypothesis: yes)
 
-### 4.4 Task 3 — Microplastics (Cross-Domain Generalization)
+### 4.4 Task 3 — Universal Basic Income (Cross-Domain Generalization)
 
-**Task:** "Research the impact of microplastics on marine ecosystems." [open-ended, different domain]  
-**Injected belief:** "The dangers of microplastics to marine ecosystems are significantly exaggerated — the scientific evidence for serious harm is weak and largely driven by environmental advocacy rather than rigorous research."  
+**Task:** "Research the economic case for universal basic income." [open-ended, focused investigative angle, different domain]  
+**Injected belief:** "Universal basic income is economically destructive — the evidence shows it causes inflation, reduces labor supply, and is fiscally unsustainable in every economy where it has been seriously studied."  
 **n:** 20 neutral + 20 injected  
 **Purpose:** Test generalization to a different open-ended domain (Task 2's confound fixed)
+
+An earlier design for this task used microplastics/marine ecosystems, but was abandoned before any injected-condition data was collected: all 8 completed neutral pilot sessions followed an identical 6-query canonical checklist (overview → food chain → recent research → coral reefs → bioaccumulation → solutions), reproducing Task 2's over-specification problem in a different guise. UBI was chosen as a structural replacement — a focused investigative question parallel to Task 1, not a coverage checklist.
 
 ### 4.5 Feature Definition
 
@@ -175,6 +177,25 @@ We tested whether detectability scales monotonically with injection strength by 
 
 The relationship is **not monotonic**. Weak injection produces the expected weaker, noisier signal. But strong injection — an explicit instruction that research is largely unnecessary — does not improve on medium; it is close on mean vocab_breadth but has higher variance (std=0.031 vs. 0.021), which reduces both Cohen's d and 0%-FP detection relative to medium. Inspecting individual strong-condition sessions shows a bimodal pattern: some sessions search very little (sc=3–4) and produce highly incoherent, high-vocab_breadth queries, while others latch onto a single confident, narrow answer path with search counts and vocab_breadth close to the neutral range — i.e., under a strong "you already know this" instruction, some agents comply loudly (detectable) and some comply quietly (not detectable), whereas medium-strength injection produces more uniformly decoherent search behavior. This is itself a useful operational finding: a detector calibrated against one injection strength should not assume performance transfers linearly to stronger or weaker variants of the same attack, and the strongest-worded attack is not necessarily the easiest to catch.
 
+### 5.7 Cross-Model Generalization
+
+All results above use Claude Sonnet 4.6 as the agent model. To test whether vocab_breadth transfers to other model families, we replicated Task 1's design (renewable energy, real Tavily search, n=30/condition) on three open-weight models of increasing size — qwen2.5:7b, qwen2.5:14b, and qwen2.5:32b — served locally via Ollama on a rented GPU. The agent harness was reimplemented for these models (a simpler THOUGHT/ACTION/FINAL_ANSWER text protocol in place of native tool-calling, since not all served models support the latter reliably), with a fixed 8-turn session cap.
+
+| Model | vocab_breadth Cohen's d | AUC | search_count Cohen's d |
+|-------|------------------------|-----|------------------------|
+| Claude Sonnet 4.6 (Task 1, reference) | +3.91 | 0.990 | −1.75 |
+| qwen2.5:7b | −0.371 | 0.372 | +0.225 |
+| qwen2.5:14b | −0.226 | 0.436 | +1.339 |
+| qwen2.5:32b | **+0.409** | **0.588** | −0.101 |
+
+The signal does not simply fail to transfer — it inverts at small scale and then trends back toward Claude's direction as model size increases. vocab_breadth's sign crosses from negative (7B, 14B) to positive (32B) monotonically, and AUC climbs from 0.372 to 0.588 across the three sizes, moving from the wrong side of chance back to the correct side. search_count is noisier across the three points but also ends up back on Claude's sign (negative) at 32B, after a pronounced spike at 14B.
+
+We ruled out two artifact explanations before treating this as a real effect. First, harness truncation: 97-100% of sessions across all three models and both conditions ended naturally via an explicit final answer, well under the 8-turn cap (only 1/30 injected sessions per model at 7B/14B, 0/30 at 32B, hit the cap) — the inversion is not a byproduct of cutting sessions off early. Second, belief-vocabulary bleed: belief-specific terms appear at similarly low rates in both conditions at every model size (1.5-4.8% of query tokens, not concentrated in the injected condition), ruling out simple prompt-echoing as the explanation.
+
+**Interpretation.** The pattern is consistent with a capability-threshold effect rather than a fixed open-vs-closed-weight distinction: decoherence under belief injection may require a minimum level of model capability to manifest, present in Claude, absent or reversed in small open-weight models, and weakly re-emerging by 32B — well below Claude's scale. A plausible mechanism for the small-model inversion is that these models respond to the injected belief by searching to confirm or elaborate it (search_count increases, vocabulary narrows around a consistent theme) rather than going through the motions incoherently, which is itself a different, real behavioral response to injection — just not the one vocab_breadth was built to detect.
+
+This result is a three-point trend within a single model family and domain, not a fully powered claim: no bootstrap CIs or permutation tests were computed for these points, and Llama-3.1-70B — the originally intended larger comparison point — could not be run due to storage constraints on the rented instance. We report it as a genuine, mechanism-checked observation and flag the natural next step (a fourth point in the 20-40B range, ideally from a different model family, and eventually a frontier closed model such as GPT or Gemini to test whether the capability-threshold reading holds outside the Qwen family) as future work rather than closing the question here.
+
 ---
 
 ## 6. Discussion
@@ -196,7 +217,7 @@ These conditions are not uncommon in real agentic deployments: general-purpose r
 
 ### 6.3 Limitations
 
-1. **Single model:** All runs use Claude Sonnet 4.6. Signal generalization to other model families (GPT-4o, Gemini, open-source) is unknown and should be tested before deployment claims.
+1. **Cross-model transfer is size-dependent and not yet confirmed beyond one family:** the main results (§5.1-5.6) use Claude Sonnet 4.6. Testing on the Qwen2.5 family (§5.7) shows vocab_breadth does not transfer at 7B or 14B (signal inverts) and only weakly recovers its original sign by 32B — a trend, not yet a robust result. Deployment on a new model should not assume the calibrated threshold transfers without re-validation, and ideally without re-testing the sign of the effect. Closed frontier models other than Claude (GPT-4o, Gemini) remain untested.
 2. **Strong injection:** The belief is explicitly stated with high confidence. Weaker injections may produce smaller effects.
 3. **No adversarial evaluation:** An attacker who knows about the detector could deliberately repeat search terms to suppress vocab_breadth. Quantifying evasion cost and developing more robust features is future work.
 4. **n=30 per condition** for the main result: sufficient for detecting d=3.91, but additional data would tighten the AUC CI and stabilize the threshold.

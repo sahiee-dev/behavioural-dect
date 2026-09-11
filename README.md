@@ -121,6 +121,42 @@ variants of the same attack.
 
 ---
 
+## Cross-model generalization — a capability-threshold trend, not a transfer
+
+Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
+on three open-weight models via Ollama on a rented GPU: qwen2.5:7b, qwen2.5:14b,
+qwen2.5:32b.
+
+| Model | vocab_breadth Cohen's d | AUC | search_count Cohen's d |
+|-------|------------------------|-----|------------------------|
+| Claude Sonnet 4.6 (reference) | +3.91 | 0.990 | −1.75 |
+| qwen2.5:7b | −0.371 | 0.372 | +0.225 |
+| qwen2.5:14b | −0.226 | 0.436 | +1.339 |
+| qwen2.5:32b | **+0.409** | **0.588** | −0.101 |
+
+The signal doesn't just fail to transfer — it **inverts at small scale and trends
+back toward Claude's direction as size increases**: vocab_breadth's sign crosses
+from negative (7B, 14B) to positive (32B), and AUC climbs from below chance
+(0.372) back above it (0.588) across the three points.
+
+Ruled out before treating this as real: harness truncation (97-100% of sessions
+at every model/condition ended naturally, well under the 8-turn cap) and
+belief-vocabulary bleed (belief terms appear at similarly low rates in both
+conditions at every size). Read: this looks like a **capability threshold**, not
+a fixed open-vs-closed-weight property — small models under injection search
+*more* and with *narrower* vocabulary (confirming/elaborating the false belief)
+rather than going through the motions incoherently the way Claude does; that
+pattern weakens as capability increases.
+
+**Caveat:** three points, one model family, one domain, no bootstrap CI or
+permutation test yet — a real, mechanism-checked trend, not a fully powered
+claim. Llama-3.1-70B was the originally intended larger point but didn't fit on
+the available GPU instance's storage. Full data and analysis: local only (not
+in this repo — see the project's research notes), same handling as the rest of
+the exploratory cross-model work.
+
+---
+
 ## Four-phase development arc
 
 | Phase | Setup | Result | Why |
@@ -237,5 +273,7 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Miss analysis: all 6 misses mechanistically explained (coherent thread found)
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
+- ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
+- ✅ Cross-model test (Qwen2.5 7B/14B/32B): signal inverts at small scale, trends back toward Claude's direction by 32B — capability-threshold hypothesis, not yet confirmed beyond one family
 - ✅ Injection-strength boundary: weak/medium/strong mapped — **non-monotonic, medium is the peak**
 - ⏳ Cross-model generalization: qwen2.5:7b transfers weakly (n=10 pilot, see crossover test note); properly-powered multi-model rerun in progress separately
