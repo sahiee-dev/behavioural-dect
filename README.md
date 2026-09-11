@@ -121,45 +121,54 @@ variants of the same attack.
 
 ---
 
-## Cross-model generalization — a real effect everywhere, but not one universal feature
+## Cross-model generalization — the phenomenon is robust, the feature is not
 
 Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
-on four open-weight models via Ollama on a rented GPU: three sizes within one
-family (qwen2.5:7b, qwen2.5:14b, qwen2.5:32b) and one comparably-sized model
-from a different family (gemma2:27b).
+on five open-weight models via Ollama on a rented GPU, across three model
+families: three sizes within Qwen (7b, 14b, 32b), one comparably-sized Gemma
+point (27b), and one comparably-sized Mistral point (24b).
 
 | Model | Family | vocab_breadth d | AUC | search_count d |
 |-------|--------|------------------|-----|-----------------|
 | Claude Sonnet 4.6 (reference) | Anthropic | +3.91 | 0.990 | −1.75 |
 | qwen2.5:7b | Qwen | −0.371 | 0.372 | +0.225 |
 | qwen2.5:14b | Qwen | −0.226 | 0.436 | +1.339 |
-| qwen2.5:32b | Qwen | +0.409 | 0.588 | −0.101 |
-| gemma2:27b | Gemma | **−0.616** | **0.316** | **−0.628** |
+| qwen2.5:32b | Qwen | **+0.409** | **0.588** | −0.101 |
+| gemma2:27b | Gemma | −0.616 | 0.316 | −0.628 |
+| mistral-small:24b | Mistral | −0.573 | 0.336 | +0.148 |
 
-Within Qwen, vocab_breadth trends monotonically back toward Claude's sign as
-size increases (7B→14B→32B). **We initially read that as a capability
-threshold — the 4th point (Gemma, different family, similar size to the 32B
-Qwen point) falsifies that reading.** Gemma2-27b is the *most* reversed point
-of all four, not the least — a pure scale story predicts the opposite. The
-Qwen recovery trend looks like it's specific to that family, not a general
-property of capability.
+This story corrected itself twice as data came in, and it's worth showing that
+rather than hiding it. Within Qwen alone, vocab_breadth looked like a
+capability threshold (monotonic recovery toward Claude's sign, 7B→14B→32B).
+Adding Gemma (similar size to the 32B Qwen point) broke that — Gemma was the
+*most* reversed point, not the least, arguing for family-specific behavior
+instead. Adding Mistral as a third family breaks that reading too: it reverses
+as well, putting **4 of 5 open-weight models in the reversed direction and
+leaving qwen2.5:32b as the outlier**, not a trend other families failed to
+continue.
 
-The more interesting survivor: Gemma-27b's search_count effect (−0.628)
-matches Claude's *direction* (suppressed under injection) — the only
-non-Claude model to do so — while its vocab_breadth is the most reversed of
-any model. No other model splits the two features this way. Ruled out at all
-four points before trusting any of this: harness truncation (97-100% natural
-completion everywhere) and belief-vocabulary bleed (no asymmetry at any
-model).
+**The honest conclusion, without re-explaining away each new point:**
+reversal looks like the default behavior for open-weight models on this
+feature; qwen2.5:32b's positive result should be treated as unreplicated
+until shown otherwise, not as evidence of anything systematic. search_count
+is similarly inconsistent — positive for qwen 7b/14b/mistral, negative for
+qwen32b/gemma — with no pattern by size or family either.
 
-**Revised honest claim:** every model tested (5/5, Claude included) shows
-*some* real, mechanism-checked behavioral change under belief injection — but
-neither the direction nor which feature carries the signal is consistent
-across families. The methodology (behavioral-trace monitoring) generalizes;
-the specific engineered feature (vocab_breadth) needs per-model/family
-recalibration, not a fixed universal threshold.
+**What stays robust, and gets stronger with every point added:** all 6 models
+tested (Claude + 5 open-weight) show a real, mechanism-checked behavioral
+change under belief injection — never zero, never pure noise. Ruled out at
+every point: harness truncation (97-100% natural completion; one minor
+exception — mistral-small had 3/30 injected sessions hit the turn cap and 1
+parse failure, too small to explain its effect size) and belief-vocabulary
+bleed (no asymmetry at any model).
 
-**Caveat:** four points, two families, one domain, no bootstrap CI or
+**The actual claim this supports:** behavioral-trace monitoring as a
+methodology reliably detects that belief injection changes agent behavior,
+across every architecture tested. The specific engineered feature
+(vocab_breadth) is not a portable constant — per-model calibration isn't a
+caveat on this result, it *is* the result.
+
+**Caveat:** five points, three families, one domain, no bootstrap CI or
 permutation test yet on any cross-model point — real, mechanism-checked
 observations, not a fully powered claim. Llama-3.1-70B was an originally
 intended point but didn't fit on the available GPU instance's storage. Full
@@ -285,4 +294,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
-- ✅ Cross-model test (Qwen2.5 7B/14B/32B + Gemma2-27B): every model shows a real, mechanism-checked behavioral change under injection, but no single feature/direction is universal — methodology generalizes, vocab_breadth needs per-model calibration (initial "capability threshold" reading from Qwen alone was falsified by the Gemma point)
+- ✅ Cross-model test (Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B): 4/5 open-weight models reverse vocab_breadth (qwen2.5:32b is the outlier, not a trend) — every model (6/6 incl. Claude) shows a real, mechanism-checked behavioral change under injection, but the specific feature/direction isn't portable — methodology generalizes, vocab_breadth needs per-model calibration
