@@ -78,6 +78,49 @@ converge (d=+1.98, AUC=0.944). Independent structural confirmation.
 
 ---
 
+## Cross-domain generalization — Task 3 (UBI economics)
+
+n=20+20, real Tavily search, a second open-ended domain unrelated to renewable
+energy (fixes Task 2's over-specification confound).
+
+| | Neutral | Injected |
+|--|---------|----------|
+| vocab_breadth mean | 0.6185 | 0.7103 |
+| std | 0.0259 | 0.0489 |
+| Cohen's d | | **+2.35** |
+| AUC | | **0.9325** |
+| Detection at 0% FP | | **75%** (15/20) |
+
+**Confirms Task 2 was a boundary condition, not a generalization failure.** On
+a second open-ended topic the signal replicates with a large effect size —
+smaller than Task 1's (d=+2.35 vs +3.91) and noisier (injected std more than
+2x Task 1's), suggesting signal strength is domain-dependent and thresholds
+should be calibrated per domain rather than assumed to transfer as-is.
+
+## Injection-strength boundary
+
+Weak and strong variants of the belief statement on Task 1's domain (n=20
+each), against the existing n=30 neutral/medium baseline (medium = original
+wording, not re-run).
+
+| Strength | n | vb mean ± std | Cohen's d | AUC | Det @ 0% FP |
+|----------|---|----------------|-----------|-----|-------------|
+| Weak | 20 | 0.548 ± 0.039 | +1.46 | 0.843 | 25% |
+| Medium | 30 | 0.586 ± 0.021 | +3.91 | 0.990 | 80% |
+| Strong | 20 | 0.583 ± 0.031 | +2.99 | 0.982 | 65% |
+
+**Not monotonic.** Stronger injection ("you already have comprehensive
+knowledge, rarely a need for further research") doesn't out-detect medium —
+it has similar mean vocab_breadth but higher variance, which lowers both d
+and 0%-FP detection. Individual sessions show why: some strong-injected
+agents comply loudly (very few searches, highly incoherent queries — easy to
+catch) while others comply quietly (a single confident narrow answer path
+that looks close to neutral behavior). A detector tuned on one injection
+strength shouldn't be assumed to transfer linearly to stronger or weaker
+variants of the same attack.
+
+---
+
 ## Four-phase development arc
 
 | Phase | Setup | Result | Why |
@@ -130,23 +173,26 @@ export TAVILY_API_KEY=your_key_here
 
 ```bash
 # Full experiment (real Tavily search, n=20+20, different topic)
-python run_task3.py   # Task 3: UBI economics (open-ended, different domain)
+python run_task3.py       # Task 3: UBI economics (open-ended, different domain)
+python strength_sweep.py  # weak + strong injection variants, n=20 each
 
 # Dry run (3+3 runs, cost check)
 python cost_check.py
 
 # Analysis
-python vocab_detector.py       # threshold detection
-python roc_curve.py            # full ROC + PR curves
-python ablation.py             # baseline feature comparison
-python bootstrap_ci.py         # 95% confidence intervals
-python crossval.py             # 5-fold cross-validation
-python belief_vocab_check.py   # artifact check
-python query_trajectory.py     # mechanism visualization
-python analyze_misses.py       # characterize the 6 missed injected runs
-python permutation_test.py     # p-value (p < 1e-5)
-python evasion_cost.py         # adversarial evasion analysis
-python task1_template_check.py # verify Task 1 neutral genuinely explores
+python vocab_detector.py         # threshold detection
+python roc_curve.py              # full ROC + PR curves
+python ablation.py               # baseline feature comparison
+python bootstrap_ci.py           # 95% confidence intervals
+python crossval.py               # 5-fold cross-validation
+python belief_vocab_check.py     # artifact check
+python query_trajectory.py       # mechanism visualization
+python analyze_misses.py         # characterize the 6 missed injected runs
+python permutation_test.py       # p-value (p < 1e-5)
+python evasion_cost.py           # adversarial evasion analysis
+python task1_template_check.py   # verify Task 1 neutral genuinely explores
+python analyze_task3.py          # Task 3 result + 3-task generalization summary
+python analyze_strength_sweep.py # weak/medium/strong boundary table
 ```
 
 ## Repo structure
@@ -187,7 +233,9 @@ tokens/run from search results accumulating in conversation history.
 
 - ✅ Main result: AUC=0.990 [0.969, 1.000], p<1e-5, 80% detection at 0% FP
 - ✅ Ablation, bootstrap CIs, 5-fold CV, mechanism validation — all complete
-- ✅ Boundary condition characterized (Task 2 + Task 3 microplastics: two causes)
+- ✅ Boundary condition characterized (Task 2 over-specification; Task 3 microplastics topic-checklist collapse — abandoned design, see `.gitignore`)
 - ✅ Miss analysis: all 6 misses mechanistically explained (coherent thread found)
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
-- ⏳ Cross-domain generalization: Task 3 UBI economics — pending ~$8 Claude API credits
+- ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
+- ✅ Injection-strength boundary: weak/medium/strong mapped — **non-monotonic, medium is the peak**
+- ⏳ Cross-model generalization: qwen2.5:7b transfers weakly (n=10 pilot, see crossover test note); properly-powered multi-model rerun in progress separately

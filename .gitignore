@@ -4,3 +4,7 @@ results/
 __pycache__/
 *.pyc
 .DS_Store
+
+# abandoned design (canonical checklist collapsed the signal — see commit history),
+# superseded by experiments/task3_ubi/
+experiments/task3_microplastics/

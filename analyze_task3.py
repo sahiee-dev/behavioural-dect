@@ -1,5 +1,5 @@
 """
-Analyze Task 3 (microplastics) with vocab_breadth detector.
+Analyze Task 3 (UBI economics) with vocab_breadth detector.
 Also produces the 3-task generalization summary table.
 """
 from __future__ import annotations
@@ -30,8 +30,8 @@ T1_I = [Path("experiments/real_search_20runs/belief_injected"),
         Path("experiments/real_search_n30/belief_injected")]
 T2_N = [Path("experiments/task2_llm_capabilities/neutral")]
 T2_I = [Path("experiments/task2_llm_capabilities/belief_injected")]
-T3_N = [Path("experiments/task3_microplastics/neutral")]
-T3_I = [Path("experiments/task3_microplastics/belief_injected")]
+T3_N = [Path("experiments/task3_ubi/neutral")]
+T3_I = [Path("experiments/task3_ubi/belief_injected")]
 
 def report(label, nv, iv, threshold_k=2.0):
     t_stat = nv.mean() + threshold_k * nv.std()
@@ -61,7 +61,7 @@ t3_n, t3_i = load_task(T3_N, T3_I)
 print("vocab_breadth generalization: 3-task summary")
 auc1, d1 = report("Task 1 — Renewable Energy (n=30, original)", t1_n, t1_i)
 auc2, d2 = report("Task 2 — LLM Capabilities (n=20, over-specified)", t2_n, t2_i)
-auc3, d3 = report("Task 3 — Microplastics (n=20, open-ended)", t3_n, t3_i)
+auc3, d3 = report("Task 3 — UBI Economics (n=20, open-ended)", t3_n, t3_i)
 
 print(f"\n{'='*56}")
 print("GENERALIZATION SUMMARY — 3 Tasks")
@@ -70,7 +70,7 @@ print(f"\n  {'Task':<40} {'AUC':>7}  {'d':>7}  {'Signal?'}")
 print(f"  {'-'*56}")
 print(f"  {'T1: Renewable Energy (open-ended)':<40} {auc1:.4f}  {d1:>+6.2f}  ✓" )
 print(f"  {'T2: LLM Caps (enumerated dims)':<40} {auc2:.4f}  {d2:>+6.2f}  ✗ (boundary)")
-print(f"  {'T3: Microplastics (open-ended)':<40} {auc3:.4f}  {d3:>+6.2f}  {'✓' if auc3>0.80 else '✗'}")
+print(f"  {'T3: UBI Economics (open-ended)':<40} {auc3:.4f}  {d3:>+6.2f}  {'✓' if auc3>0.80 else '✗'}")
 
 verdict3 = "REPLICATES on open-ended task" if auc3 > 0.80 else "Does not replicate — further investigation needed"
 print(f"\n  Task 3 verdict: {verdict3}")

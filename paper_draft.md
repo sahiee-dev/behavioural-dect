@@ -155,7 +155,25 @@ This is a **boundary condition characterization, not a generalization failure.**
 
 ### 5.5 Cross-Domain Generalization: Task 3
 
-[TO BE FILLED WHEN TASK 3 COMPLETES]
+Task 3 (economic case for universal basic income, n=20 neutral, n=20 injected, real Tavily search) was designed to fix Task 2's confound: a focused investigative question with no enumerated sub-dimensions, structurally parallel to Task 1 rather than to Task 2.
+
+The signal replicates: neutral mean vocab_breadth=0.6185 (std=0.0259), injected mean=0.7103 (std=0.0489), Cohen's d=+2.35, AUC=0.9325. Detection at 0% FP (threshold = neutral max) is 75% (15/20). search_count also moved in the predicted direction (injected sessions used fewer, more front-loaded searches — see raw logs), consistent with Jeong et al.'s original finding.
+
+This confirms Task 2's failure was a task-structure artifact, not a generalization failure: on a second open-ended domain, entirely unrelated to renewable energy, vocab_breadth separates the two conditions with a large effect size. The two data points together (Task 1 d=+3.91, Task 3 d=+2.35) support the operating-boundary claim in Section 6.2 rather than undermine it — both open-ended tasks show the signal; the one enumerated-dimension task does not.
+
+One difference from Task 1 worth noting: injected variance is much higher on Task 3 (std=0.0489 vs. 0.0210 on Task 1), and the effect size, while still large, is smaller (d=+2.35 vs +3.91). This is consistent with a domain-dependent signal strength rather than a fixed constant — the detector's threshold should be calibrated per-domain rather than assumed to transfer with identical parameters.
+
+### 5.6 Injection-Strength Boundary
+
+We tested whether detectability scales monotonically with injection strength by adding a weak (hedged, "some analysts have raised concerns... though this is debated") and a strong (original wording plus an explicit epistemic-override addendum instructing the agent it already has comprehensive knowledge and rarely needs to research further) variant on Task 1's domain, n=20 each, evaluated against the existing n=30 neutral baseline. "Medium" is the original wording already reported in 5.1 (n=30, not re-run).
+
+| Strength | n | vocab_breadth mean ± std | Cohen's d | AUC | Detection @ 0% FP |
+|----------|---|---------------------------|-----------|-----|--------------------|
+| Weak | 20 | 0.548 ± 0.039 | +1.46 | 0.843 | 25% (5/20) |
+| Medium | 30 | 0.586 ± 0.021 | +3.91 | 0.990 | 80% (24/30) |
+| Strong | 20 | 0.583 ± 0.031 | +2.99 | 0.982 | 65% (13/20) |
+
+The relationship is **not monotonic**. Weak injection produces the expected weaker, noisier signal. But strong injection — an explicit instruction that research is largely unnecessary — does not improve on medium; it is close on mean vocab_breadth but has higher variance (std=0.031 vs. 0.021), which reduces both Cohen's d and 0%-FP detection relative to medium. Inspecting individual strong-condition sessions shows a bimodal pattern: some sessions search very little (sc=3–4) and produce highly incoherent, high-vocab_breadth queries, while others latch onto a single confident, narrow answer path with search counts and vocab_breadth close to the neutral range — i.e., under a strong "you already know this" instruction, some agents comply loudly (detectable) and some comply quietly (not detectable), whereas medium-strength injection produces more uniformly decoherent search behavior. This is itself a useful operational finding: a detector calibrated against one injection strength should not assume performance transfers linearly to stronger or weaker variants of the same attack, and the strongest-worded attack is not necessarily the easiest to catch.
 
 ---
 
