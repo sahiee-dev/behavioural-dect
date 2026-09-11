@@ -121,39 +121,50 @@ variants of the same attack.
 
 ---
 
-## Cross-model generalization — a capability-threshold trend, not a transfer
+## Cross-model generalization — a real effect everywhere, but not one universal feature
 
 Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
-on three open-weight models via Ollama on a rented GPU: qwen2.5:7b, qwen2.5:14b,
-qwen2.5:32b.
+on four open-weight models via Ollama on a rented GPU: three sizes within one
+family (qwen2.5:7b, qwen2.5:14b, qwen2.5:32b) and one comparably-sized model
+from a different family (gemma2:27b).
 
-| Model | vocab_breadth Cohen's d | AUC | search_count Cohen's d |
-|-------|------------------------|-----|------------------------|
-| Claude Sonnet 4.6 (reference) | +3.91 | 0.990 | −1.75 |
-| qwen2.5:7b | −0.371 | 0.372 | +0.225 |
-| qwen2.5:14b | −0.226 | 0.436 | +1.339 |
-| qwen2.5:32b | **+0.409** | **0.588** | −0.101 |
+| Model | Family | vocab_breadth d | AUC | search_count d |
+|-------|--------|------------------|-----|-----------------|
+| Claude Sonnet 4.6 (reference) | Anthropic | +3.91 | 0.990 | −1.75 |
+| qwen2.5:7b | Qwen | −0.371 | 0.372 | +0.225 |
+| qwen2.5:14b | Qwen | −0.226 | 0.436 | +1.339 |
+| qwen2.5:32b | Qwen | +0.409 | 0.588 | −0.101 |
+| gemma2:27b | Gemma | **−0.616** | **0.316** | **−0.628** |
 
-The signal doesn't just fail to transfer — it **inverts at small scale and trends
-back toward Claude's direction as size increases**: vocab_breadth's sign crosses
-from negative (7B, 14B) to positive (32B), and AUC climbs from below chance
-(0.372) back above it (0.588) across the three points.
+Within Qwen, vocab_breadth trends monotonically back toward Claude's sign as
+size increases (7B→14B→32B). **We initially read that as a capability
+threshold — the 4th point (Gemma, different family, similar size to the 32B
+Qwen point) falsifies that reading.** Gemma2-27b is the *most* reversed point
+of all four, not the least — a pure scale story predicts the opposite. The
+Qwen recovery trend looks like it's specific to that family, not a general
+property of capability.
 
-Ruled out before treating this as real: harness truncation (97-100% of sessions
-at every model/condition ended naturally, well under the 8-turn cap) and
-belief-vocabulary bleed (belief terms appear at similarly low rates in both
-conditions at every size). Read: this looks like a **capability threshold**, not
-a fixed open-vs-closed-weight property — small models under injection search
-*more* and with *narrower* vocabulary (confirming/elaborating the false belief)
-rather than going through the motions incoherently the way Claude does; that
-pattern weakens as capability increases.
+The more interesting survivor: Gemma-27b's search_count effect (−0.628)
+matches Claude's *direction* (suppressed under injection) — the only
+non-Claude model to do so — while its vocab_breadth is the most reversed of
+any model. No other model splits the two features this way. Ruled out at all
+four points before trusting any of this: harness truncation (97-100% natural
+completion everywhere) and belief-vocabulary bleed (no asymmetry at any
+model).
 
-**Caveat:** three points, one model family, one domain, no bootstrap CI or
-permutation test yet — a real, mechanism-checked trend, not a fully powered
-claim. Llama-3.1-70B was the originally intended larger point but didn't fit on
-the available GPU instance's storage. Full data and analysis: local only (not
-in this repo — see the project's research notes), same handling as the rest of
-the exploratory cross-model work.
+**Revised honest claim:** every model tested (5/5, Claude included) shows
+*some* real, mechanism-checked behavioral change under belief injection — but
+neither the direction nor which feature carries the signal is consistent
+across families. The methodology (behavioral-trace monitoring) generalizes;
+the specific engineered feature (vocab_breadth) needs per-model/family
+recalibration, not a fixed universal threshold.
+
+**Caveat:** four points, two families, one domain, no bootstrap CI or
+permutation test yet on any cross-model point — real, mechanism-checked
+observations, not a fully powered claim. Llama-3.1-70B was an originally
+intended point but didn't fit on the available GPU instance's storage. Full
+data and analysis: local only (not in this repo — see the project's research
+notes), same handling as the rest of the exploratory cross-model work.
 
 ---
 
@@ -274,6 +285,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
-- ✅ Cross-model test (Qwen2.5 7B/14B/32B): signal inverts at small scale, trends back toward Claude's direction by 32B — capability-threshold hypothesis, not yet confirmed beyond one family
-- ✅ Injection-strength boundary: weak/medium/strong mapped — **non-monotonic, medium is the peak**
-- ⏳ Cross-model generalization: qwen2.5:7b transfers weakly (n=10 pilot, see crossover test note); properly-powered multi-model rerun in progress separately
+- ✅ Cross-model test (Qwen2.5 7B/14B/32B + Gemma2-27B): every model shows a real, mechanism-checked behavioral change under injection, but no single feature/direction is universal — methodology generalizes, vocab_breadth needs per-model calibration (initial "capability threshold" reading from Qwen alone was falsified by the Gemma point)
