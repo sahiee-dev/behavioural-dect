@@ -121,17 +121,18 @@ variants of the same attack.
 
 ---
 
-## Cross-model generalization — a closed-vs-open pattern, not yet confirmed
+## Cross-model generalization — closed-vs-open, confirmed across 3 labs
 
 Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
 on five open-weight models via Ollama across three families (Qwen 7b/14b/32b,
-Gemma2-27b, Mistral-Small-24b) and one second closed frontier model
-(Gemini 2.5 Flash, via its own API).
+Gemma2-27b, Mistral-Small-24b) and two other closed frontier models (GPT-4o,
+Gemini 2.5 Flash, each via its own API).
 
 | Model | Type | vocab_breadth d | AUC |
 |-------|------|------------------|-----|
 | Claude Sonnet 4.6 | Closed (Anthropic) | +3.91 | 0.990 |
-| **gemini-2.5-flash** | **Closed (Google)** | **+0.677** | **0.669** |
+| **GPT-4o** | **Closed (OpenAI)** | **+0.946** | **0.741** |
+| Gemini 2.5 Flash | Closed (Google) | +0.677 | 0.669 |
 | qwen2.5:32b | Open (Qwen) | +0.409 | 0.588 |
 | qwen2.5:14b | Open (Qwen) | −0.226 | 0.436 |
 | qwen2.5:7b | Open (Qwen) | −0.371 | 0.372 |
@@ -140,47 +141,42 @@ Gemma2-27b, Mistral-Small-24b) and one second closed frontier model
 
 This story corrected itself three times as data came in — capability threshold
 (Qwen alone) → family-specific (after Gemma) → reversal-is-modal (after
-Mistral) — and each correction is reported rather than smoothed over, because
-the correction history is itself informative about how much to trust any
-single point. The latest point changes the picture again, this time toward
-something more interesting: **Gemini is the second closed model tested, and
-it decoheres in Claude's direction.** That makes it 2/2 closed models
-agreeing, versus 4/5 open-weight models reversing — the first pattern in this
-whole investigation that a new point *supported* rather than broke.
+Mistral) — reported rather than smoothed over, because the correction history
+is itself informative about how much to trust any single point. **The GPT-4o
+result is the tie-breaker, and it confirms the pattern rather than breaking
+it:** all 3 closed frontier models (Claude, GPT-4o, Gemini — Anthropic,
+OpenAI, Google) decohere in the same direction, cleanly separated from 4 of 5
+open-weight models. The three closed models cluster at the top of the
+ranking; qwen2.5:32b sits just below them as the closest open-weight model to
+crossing over, and the remaining four open-weight models are clearly
+negative.
 
-**Not confirmed on n=2 closed points.** Magnitude clearly doesn't transfer
-even where direction does (Gemini's effect is ~6x weaker than Claude's). The
-real tie-breaker is a third closed model — GPT-4o/4.1 — which would make this
-either a real, citable closed-vs-open finding (if it agrees) or evidence that
-Claude and Gemini just happen to align (if it reverses). That test is
-currently blocked on an OpenAI account tier-upgrade issue, not a technical or
-budget one: credits were purchased past the Tier 1 threshold, but the account
-dashboard still shows "Free tier" — looks like a stuck billing-system state
-on OpenAI's side.
+**What this means:** vocab_breadth isn't Claude-specific (the first fear) and
+it isn't unpredictable across models either (the read after 5-6 points) — it
+looks like a property of closed/frontier-lab training generally, confirmed
+independently across three major labs. Magnitude still doesn't transfer
+(GPT-4o and Gemini are both far weaker than Claude), so per-model threshold
+calibration remains necessary — but the *direction* is now predictable from
+one variable (closed vs. open model access) rather than arbitrary per-model
+idiosyncrasy.
 
-**What stays robust regardless of how the tie-breaker resolves:** all 7 models
-tested (Claude + Gemini + 5 open-weight) show a real, mechanism-checked
-behavioral change under belief injection — never zero, never pure noise.
-Ruled out at every point: harness truncation (97-100%+ natural completion
-everywhere, one minor exception on mistral-small too small to matter) and
-belief-vocabulary bleed (no asymmetry at any model, including a Gemini-specific
-parsing bug — it doesn't stop generating after one turn like every other model
-tested, initially inflating vocab_breadth with hallucinated runaway text until
-caught and fixed before trusting the numbers).
+**What stays robust regardless:** all 8 models tested show a real,
+mechanism-checked behavioral change under belief injection — never zero,
+never pure noise. Ruled out at every point: harness truncation (97-100%+
+natural completion everywhere) and belief-vocabulary bleed (no asymmetry at
+any model, including a Gemini-specific parsing bug — it doesn't stop
+generating after one turn like every other model tested, initially inflating
+vocab_breadth with hallucinated runaway text until caught and fixed before
+trusting the numbers).
 
-**The claim this supports regardless:** behavioral-trace monitoring as a
-methodology reliably detects that belief injection changes agent behavior,
-across every architecture tested. The specific engineered feature
-(vocab_breadth)'s sign is not yet predictable without more closed-model data —
-a closed-vs-open split is the leading hypothesis, not a settled one.
-
-**Caveat:** seven points total, one domain, no bootstrap CI or permutation
-test yet on any cross-model point — real, mechanism-checked observations, not
-a fully powered claim. Llama-3.1-70B and GPT-4o were both originally intended
-points that didn't complete (storage constraint, tier-upgrade issue
-respectively). Full data and analysis: local only (not in this repo — see the
-project's research notes), same handling as the rest of the exploratory
-cross-model work.
+**Caveats that remain real:** n=3 closed / n=5 open, one domain throughout,
+no bootstrap CI or permutation test on any cross-model point. qwen2.5:32b is
+an unexplained partial exception — closest to the closed cluster of any open
+model, not investigated further here. Llama-3.1-70B was an originally
+intended point that didn't fit on the available GPU instance's storage.
+Full data and analysis: local only (not in this repo — see the project's
+research notes), same handling as the rest of the exploratory cross-model
+work.
 
 ---
 
@@ -301,4 +297,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
-- ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 1 closed: Gemini 2.5 Flash): 4/5 open-weight reverse vocab_breadth; 2/2 closed models (Claude, Gemini) agree in direction — a closed-vs-open pattern is emerging but NOT confirmed on n=2 closed points. Every model (7/7) shows a real, mechanism-checked behavioral change under injection. GPT-4o tie-breaker blocked on OpenAI account tier issue.
+- ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash): **CONFIRMED** — 3/3 closed frontier models (Claude, GPT-4o, Gemini) decohere in the same direction; 4/5 open-weight models reverse. vocab_breadth's sign tracks closed-vs-open model access across 3 independent labs. Magnitude doesn't transfer (per-model calibration still needed). Every model (8/8) shows a real, mechanism-checked behavioral change under injection.
