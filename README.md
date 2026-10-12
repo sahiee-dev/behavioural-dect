@@ -121,62 +121,67 @@ variants of the same attack.
 
 ---
 
-## Cross-model generalization — closed-vs-open, confirmed across 3 labs
+## Cross-model generalization — closed-vs-open, with honest uncertainty
 
 Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
 on five open-weight models via Ollama across three families (Qwen 7b/14b/32b,
 Gemma2-27b, Mistral-Small-24b) and two other closed frontier models (GPT-4o,
-Gemini 2.5 Flash, each via its own API).
+Gemini 2.5 Flash, each via its own API). **Every point below now has a
+bootstrap 95% CI (B=10,000) and a permutation-test p-value (N=100,000) —
+identical methodology to the Task 1 headline result, not just a point estimate.**
 
-| Model | Type | vocab_breadth d | AUC |
-|-------|------|------------------|-----|
-| Claude Sonnet 4.6 | Closed (Anthropic) | +3.91 | 0.990 |
-| **GPT-4o** | **Closed (OpenAI)** | **+0.946** | **0.741** |
-| Gemini 2.5 Flash | Closed (Google) | +0.677 | 0.669 |
-| qwen2.5:32b | Open (Qwen) | +0.409 | 0.588 |
-| qwen2.5:14b | Open (Qwen) | −0.226 | 0.436 |
-| qwen2.5:7b | Open (Qwen) | −0.371 | 0.372 |
-| mistral-small:24b | Open (Mistral) | −0.573 | 0.336 |
-| gemma2:27b | Open (Gemma) | −0.616 | 0.316 |
+| Model | Type | vocab_breadth d | 95% CI | AUC | p-value | Significant? |
+|-------|------|------------------|--------|-----|---------|---------------|
+| Claude Sonnet 4.6 | Closed (Anthropic) | +3.91 | [+3.01, +5.38] | 0.990 | <1e-5 | ✅ |
+| **GPT-4o** | **Closed (OpenAI)** | **+0.963** | **[+0.434, +1.623]** | **0.741** | **0.00025** | ✅ |
+| Gemini 2.5 Flash | Closed (Google) | +0.688 | [+0.240, +1.170] | 0.669 | 0.00422 | ✅ |
+| mistral-small:24b | Open (Mistral) | −0.582 | [−1.201, −0.073] | 0.336 | 0.017 | ✅ |
+| gemma2:27b | Open (Gemma) | −0.626 | [−1.300, −0.096] | 0.316 | 0.010 | ✅ |
+| qwen2.5:32b | Open (Qwen) | +0.416 | [−0.094, +1.075] | 0.588 | 0.060 | ❌ CI crosses 0 |
+| qwen2.5:14b | Open (Qwen) | −0.233 | [−0.832, +0.305] | 0.436 | 0.200 | ❌ CI crosses 0 |
+| qwen2.5:7b | Open (Qwen) | −0.377 | [−1.095, +0.166] | 0.372 | 0.099 | ❌ CI crosses 0 |
 
-This story corrected itself three times as data came in — capability threshold
-(Qwen alone) → family-specific (after Gemma) → reversal-is-modal (after
-Mistral) — reported rather than smoothed over, because the correction history
-is itself informative about how much to trust any single point. **The GPT-4o
-result is the tie-breaker, and it confirms the pattern rather than breaking
-it:** all 3 closed frontier models (Claude, GPT-4o, Gemini — Anthropic,
-OpenAI, Google) decohere in the same direction, cleanly separated from 4 of 5
-open-weight models. The three closed models cluster at the top of the
-ranking; qwen2.5:32b sits just below them as the closest open-weight model to
-crossing over, and the remaining four open-weight models are clearly
-negative.
+This story corrected itself **four times**, reported rather than smoothed
+over because the correction history is itself informative about how much to
+trust any single reading: capability threshold (Qwen alone) → family-specific
+(after Gemma) → reversal-is-modal (after Mistral) → **"4/5 open-weight models
+reverse" downgraded to "2/5 significantly reverse, 3/5 (all Qwen)
+statistically inconclusive at n=30"** once bootstrap CIs and permutation
+tests were actually computed, rather than trusting point estimates alone.
 
-**What this means:** vocab_breadth isn't Claude-specific (the first fear) and
-it isn't unpredictable across models either (the read after 5-6 points) — it
-looks like a property of closed/frontier-lab training generally, confirmed
-independently across three major labs. Magnitude still doesn't transfer
-(GPT-4o and Gemini are both far weaker than Claude), so per-model threshold
-calibration remains necessary — but the *direction* is now predictable from
-one variable (closed vs. open model access) rather than arbitrary per-model
-idiosyncrasy.
+**The honest, current version of the finding:** both closed models tested
+remain clearly significant (GPT-4o p=0.00025, Gemini p=0.00422). Two of five
+open-weight models (Gemma, Mistral) significantly reverse. **All three Qwen
+points — the entire size range tested within that one family — have
+confidence intervals that cross zero.** Their point estimates aren't zero,
+but at n=30 we cannot statistically rule out "no effect at all" for any of
+them. This is not evidence Qwen doesn't reverse — it's evidence we don't yet
+have enough data to say either way.
 
-**What stays robust regardless:** all 8 models tested show a real,
-mechanism-checked behavioral change under belief injection — never zero,
-never pure noise. Ruled out at every point: harness truncation (97-100%+
-natural completion everywhere) and belief-vocabulary bleed (no asymmetry at
-any model, including a Gemini-specific parsing bug — it doesn't stop
-generating after one turn like every other model tested, initially inflating
-vocab_breadth with hallucinated runaway text until caught and fixed before
-trusting the numbers).
+**What this means:** vocab_breadth isn't Claude-specific (the first fear),
+and the closed-vs-open split remains the best-supported pattern in the data
+— but it's "2/2 closed significant, 2/5 open-weight significantly reversed,
+3/5 open-weight inconclusive," not the cleaner "3/3 vs 4/5" previously
+reported. Magnitude still doesn't transfer even where direction reaches
+significance (GPT-4o and Gemini are both far weaker than Claude), so
+per-model threshold calibration remains necessary regardless.
 
-**Caveats that remain real:** n=3 closed / n=5 open, one domain throughout,
-no bootstrap CI or permutation test on any cross-model point. qwen2.5:32b is
-an unexplained partial exception — closest to the closed cluster of any open
-model, not investigated further here. Llama-3.1-70B was an originally
-intended point that didn't fit on the available GPU instance's storage.
-Full data and analysis: local only (not in this repo — see the project's
-research notes), same handling as the rest of the exploratory cross-model
-work.
+**What stays robust regardless:** 5 of 8 models tested show a real,
+statistically significant, mechanism-checked behavioral change under belief
+injection. Ruled out at every point (significant or not): harness truncation
+(97-100%+ natural completion everywhere) and belief-vocabulary bleed (no
+asymmetry at any model, including a Gemini-specific parsing bug — it doesn't
+stop generating after one turn like every other model tested, initially
+inflating vocab_breadth with hallucinated runaway text until caught and fixed
+before trusting the numbers).
+
+**Caveats that remain real:** one domain throughout. Qwen needs a larger
+sample before its direction can be claimed at all — that's now the single
+most useful next experiment, more useful than a new model or family. Llama-
+3.1-70B was an originally intended point that didn't fit on the available GPU
+instance's storage. Full data and analysis: local only (not in this repo —
+see the project's research notes), same handling as the rest of the
+exploratory cross-model work.
 
 ---
 
@@ -297,4 +302,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Evasion analysis: ~1 word/query padding required; requires system prompt modification
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
-- ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash): **CONFIRMED** — 3/3 closed frontier models (Claude, GPT-4o, Gemini) decohere in the same direction; 4/5 open-weight models reverse. vocab_breadth's sign tracks closed-vs-open model access across 3 independent labs. Magnitude doesn't transfer (per-model calibration still needed). Every model (8/8) shows a real, mechanism-checked behavioral change under injection.
+- ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
