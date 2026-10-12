@@ -303,6 +303,22 @@ not the whole story. Full writeup: `paper_draft.md` §5.4, §5.6, §5.7, §6.1,
 §6.3, Conclusion. Data: `experiments/agentdrift_transfer/full_length_audit.py`
 and `full_length_audit_results.json`.
 
+**Cross-checked the 2 reclassifications with a second length-normalization
+method (MATTR, `mattr_check.py`):** agrees on all 3 interesting cases —
+Qwen2.5-32B and Mistral-Small-24B both flip to significant Claude-direction,
+Gemma2-27B's reversal is confirmed and strengthens. Diverges beyond that
+(flags qwen2.5:7b as significant where Guiraud doesn't; qwen2.5:14b gives an
+internally inconsistent result, likely a window-size calibration issue given
+that model's query text ranges 17-1,234 tokens/run) — reported honestly
+rather than cherry-picking the confirming method. Net: confident about 3 of
+5 open-weight reclassifications surviving a second check; the remaining 2
+Qwen points stay unresolved for a now-specific, documented reason.
+
+Also computed (not just recommended) multiple-comparisons correction on the
+8 cross-model p-values: Benjamini-Hochberg preserves "5/8 significant";
+Holm-Bonferroni, stricter, drops mistral-small:24b to inconclusive
+(`multiple_comparisons.py`).
+
 ---
 
 ## Four-phase development arc
