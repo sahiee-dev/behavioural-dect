@@ -55,3 +55,21 @@ vocab_breadth is mechanism-specific to belief-prefill injection (where it
 retains most of its power after the confound is removed), not a
 general-purpose detector (where, on AgentDrift, most of the raw signal was
 the confound itself).
+
+## Full project-wide length audit (Task 2, Task 3, injection strength, all 8 cross-model points)
+
+Script: `full_length_audit.py` (run: `python3 full_length_audit.py`, no args).
+Full per-dataset bootstrap CI / permutation p-value output in
+`full_length_audit_results.json`. Summary table and the cross-model
+query-count-mediation finding (r=−0.758, p=0.030, n=8) are written up in
+`../../README.md` ("Full length-confound audit") and `../../paper_draft.md`
+(§5.4, §5.5, §5.6, §5.7, §6.1, §6.3, Conclusion) — not duplicated here in
+full to avoid drift between three copies of the same numbers.
+
+One number worth flagging here that isn't in the main writeup: within
+Task 2 alone, Pearson r(vocab_breadth, n_queries) = −0.094 — much weaker
+than Task 1's −0.585, despite both showing a significant raw n_queries
+effect. This is consistent with Task 2's reversal being driven by the
+templated-task structure itself (both conditions converge to the same
+query template) rather than a clean length-vs-diversity trade-off like
+Task 1's.

@@ -119,6 +119,12 @@ that looks close to neutral behavior). A detector tuned on one injection
 strength shouldn't be assumed to transfer linearly to stronger or weaker
 variants of the same attack.
 
+**Update, length-confound audit below: weak and strong's raw numbers above
+are mostly the length confound, not mostly real diversity change.**
+Length-normalizing (Guiraud's index) reverses both: weak AUC=0.843 → 0.177,
+strong AUC=0.982 → 0.100. Only medium survives (0.990 → 0.846, same
+direction). See the full audit section for why.
+
 ---
 
 ## Cross-model generalization — closed-vs-open, with honest uncertainty
@@ -249,6 +255,56 @@ under each dataset's own attack.
 
 ---
 
+## Full length-confound audit — every dataset in this repo
+
+Extended the length check above to Task 2, Task 3, both injection-strength
+variants, and all 8 cross-model points. Code:
+`experiments/agentdrift_transfer/full_length_audit.py`. One conclusion:
+**the confound's size and direction vary by case — check it per-dataset,
+don't assume it.**
+
+| Dataset | Raw AUC | Length-normalized AUC | Verdict |
+|---|---|---|---|
+| Task 1 (Claude, medium) | 0.990 | 0.846 | Inflates, doesn't reverse |
+| Task 2 (Claude, boundary) | 0.310 (reversed) | 0.440 (n.s.) | Reversal is *entirely* the confound |
+| Task 3 (Claude, UBI) | 0.9325 | 0.800 | Minimal confound — cleanest result in the repo |
+| Weak injection | 0.843 | 0.177 (reversed) | Raw signal is *mostly* the confound |
+| Strong injection | 0.982 | 0.100 (reversed) | Raw signal is *mostly* the confound |
+| AgentDrift (different mechanism) | 0.432 (reversed) | 0.580 | Reversal is *mostly* the confound |
+
+**Applied to the cross-model table, this reclassifies 2 of 5 open-weight
+models:**
+
+| Model | Raw AUC (sig?) | Guiraud AUC (sig?) | Changed? |
+|---|---|---|---|
+| qwen2.5:32b | 0.588 (no) | **0.886 (yes)** | **Inconclusive → significant, Claude-direction** |
+| mistral-small:24b | 0.336 (yes, reversed) | **0.672 (yes, Claude-direction)** | **Significant reversal → significant Claude-direction** |
+| gemma2:27b | 0.316 (yes, reversed) | 0.132 (yes, reversed) | No — reversal confirmed, even stronger |
+| qwen2.5:14b / 7b | 0.395 / 0.363 (no) | 0.594 / 0.572 (no) | No — still inconclusive either way |
+
+**The big one: does query-count reduction predict vocab_breadth increase
+across models?** Correlated each model's own d(n_queries) against its
+d(vocab_breadth) across all 8 models (the 7 cross-model points + Claude):
+**r=−0.758, p=0.030 (n=8).** Models that cut search more under belief
+injection show more decoherence in the raw feature — a measurable, partial
+mediator for the paper's biggest open question (why closed vs. open
+differ). Partial, not complete: Gemma cuts its queries in Claude's
+direction (4th-most-negative of 8) but its reversal *strengthens* under
+length control, so at least one model's divergence is a real per-query
+lexical change, not just length.
+
+**Bottom line:** Task 3 (UBI) is now the paper's cleanest single result,
+not Task 1. The injection-strength non-monotonicity has a sharper
+explanation — medium may be qualitatively different (real scatter), not
+just the empirical peak of a noisy curve. And the cross-model closed-vs-
+open split is partially, not fully, explained by each model's own search-
+effort response to belief — with Gemma as the clear exception proving it's
+not the whole story. Full writeup: `paper_draft.md` §5.4, §5.6, §5.7, §6.1,
+§6.3, Conclusion. Data: `experiments/agentdrift_transfer/full_length_audit.py`
+and `full_length_audit_results.json`.
+
+---
+
 ## Four-phase development arc
 
 | Phase | Setup | Result | Why |
@@ -368,3 +424,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
 - ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
 - ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
+- ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound; cross-model length-normalization reclassifies 2/5 open-weight models to significant Claude-direction; query-count reduction significantly predicts vocab_breadth increase across models (r=−0.758, p=0.030, n=8) — a partial, measurable mediator for the closed-vs-open question, with Gemma as the clear exception. See dedicated section above and paper §5.4/§5.6/§5.7/§6.1/§6.3/Conclusion.
