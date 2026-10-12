@@ -8,3 +8,6 @@ __pycache__/
 # abandoned design (canonical checklist collapsed the signal — see commit history),
 # superseded by experiments/task3_ubi/
 experiments/task3_microplastics/
+
+# cloned external benchmark (CC BY 4.0, Asif-0209/AgentDrift) — not our code, 198MB
+experiments/agentdrift_transfer/repo/

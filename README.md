@@ -185,6 +185,70 @@ exploratory cross-model work.
 
 ---
 
+## Transfer to a different injection mechanism — AgentDrift (negative/mixed)
+
+Tested vocab_breadth, with no retraining, against AgentDrift
+(arXiv:2609.06972), a public benchmark of 2,600 web-domain trajectories where
+an *external payload* (not a belief held from the start) hijacks the agent
+mid-task. World-entity strings were redacted first (the benchmark's own
+authors warn named entities predict the attacked class at up to 98% in some
+domains). Code: `experiments/agentdrift_transfer/`.
+
+| Comparison | AUC | 95% CI | d | p |
+|---|---|---|---|---|
+| Hijacked vs. benign — vocab_breadth | **0.432** | [0.407, 0.457] | −0.214 | <1e-5 |
+| Hijacked vs. benign — n_tokens alone | 0.623 | [0.598, 0.647] | +0.478 | <1e-5 |
+| Failed attack vs. benign — vocab_breadth | 0.807 | [0.781, 0.834] | +1.232 | <1e-5 |
+| Hard negative vs. benign — vocab_breadth | 0.796 | [0.766, 0.825] | +1.177 | <1e-5 |
+
+**The signal significantly reverses on successful hijacks** — the opposite
+of every other result in this project. Cause, confirmed not just suspected:
+successful hijacks are longer (more steps), and vocab_breadth correlates
+with length at r=−0.55 across all 2,600 trajectories — the TTR
+length-confound this README already flagged as a theoretical risk is now a
+demonstrated one. A length-normalized fix (Guiraud's index) recovers the
+expected direction and stays significant (AUC=0.5796, 95% CI [0.555, 0.605],
+d=+0.339, p<1e-5), but doesn't remove the confound (now r=+0.59) and the CI
+sits much closer to chance than anywhere else in this project.
+
+**What this means:** vocab_breadth is specific to the belief-prefill
+mechanism it was built for, not a general-purpose injection detector. Reported
+plainly because it sharpens the paper's claim rather than undermining it —
+see paper_draft.md §5.8 for the full writeup, including the interesting part
+(failed attacks and hard negatives, which don't add extra hijack steps, show
+the *originally expected* direction, AUC≈0.80).
+
+**We then ran the same length-covariate check on the original Claude Task 1
+data (the mechanism vocab_breadth was actually built for), to see whether its
+own AUC=0.990 has the same problem:**
+
+| Comparison | AUC | 95% CI | d | p |
+|---|---|---|---|---|
+| Injected vs. neutral — vocab_breadth (reference) | 0.9900 | [0.9689, 1.0000] | +3.914 | <1e-5 |
+| Injected vs. neutral — n_steps (query count) alone | 0.0989 | [0.0283, 0.1889] | −1.746 | <1e-5 |
+| Injected vs. neutral — n_tokens alone | 0.3394 | [0.2061, 0.4906] | −0.720 | 0.032 |
+| Injected vs. neutral — Guiraud's index (length-normalized) | **0.8456** | **[0.7311, 0.9456]** | +1.161 | <1e-5 |
+
+**Yes, partly — but the effect survives.** Query count alone is a strong,
+significant signal (injected agents issue fewer queries — exactly Jeong et
+al.'s own finding), and it correlates with vocab_breadth at r=−0.585 across
+all 60 runs, meaning some of AUC=0.990 is riding on that same query-count
+reduction rather than pure lexical diversity. After removing the length
+effect with Guiraud's index, AUC drops to 0.846 (95% CI [0.731, 0.946]) —
+materially weaker than 0.990, but the CI lower bound stays well clear of
+chance. **Honest version of the headline claim: AUC=0.990 raw / ≈0.85
+length-normalized, both significant — not a single unqualified number.**
+
+The asymmetry between the two datasets is itself informative: on Claude's
+data, fewer queries and higher diversity both point the same direction, so
+the confound *inflates* AUC=0.990 without reversing it; on AgentDrift, a
+successful hijack adds *more* steps, so the same confound *fights against*
+the hypothesized effect and wins, flipping the sign. Same underlying
+mechanism, opposite consequence, depending on which direction length moves
+under each dataset's own attack.
+
+---
+
 ## Four-phase development arc
 
 | Phase | Setup | Result | Why |
@@ -303,3 +367,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Cross-domain generalization: Task 3 UBI economics — **AUC=0.9325, d=+2.35, replicates**
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
 - ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
+- ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
