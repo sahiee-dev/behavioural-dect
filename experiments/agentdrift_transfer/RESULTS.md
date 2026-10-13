@@ -107,3 +107,50 @@ tested against more data in the same session, rather than left standing.
 It didn't hold up, and that correction is reported in the same place as
 the original finding — paper_draft.md §5.7 and Conclusion, both updated
 same night.
+
+## THE biggest finding of the night: cross-model data-integrity correction
+
+While the Qwen/Mistral/Gemma extension batches above were running, Tavily's
+API started returning "exceeds your plan's set usage limit" on every
+request. Checking whether this had ALSO silently happened during the
+ORIGINAL n=30 collection (not just tonight's new attempts) found that it
+had: 5 of 7 non-Claude cross-model files contain search-error observations
+(1.2%-15% of observations), and for 3 models — qwen2.5:14b, mistral-small:24b,
+GPT-4o — the belief_injected condition was hit meaningfully harder than
+neutral (e.g. GPT-4o: 7.8% vs 0%). Claude's own data (Tasks 1-3) is 100%
+clean throughout.
+
+Error-contaminated sessions show dramatically lower vocab_breadth than
+clean ones (pooled across all 7 files: AUC=0.061, p<0.0001, n=347 clean /
+73 contaminated) — mechanically, an agent fed error text instead of real
+search results has nothing new to branch into, so it repeats itself.
+
+Recomputing each model with contaminated sessions removed
+(`analyze_clean_only.py`, `clean_only_results.json`):
+
+| Model | Original AUC (d, p) | Clean-only AUC (d, p) | n (clean) |
+|---|---|---|---|
+| GPT-4o | 0.741 (+0.963, 0.00061) | 0.855 (+1.644, <0.00001) | 30+23 |
+| Gemini 2.5 Flash | 0.669 (+0.688, 0.024) | 0.669 (+0.688, 0.024) | 30+30 |
+| qwen2.5:32b | 0.588 (+0.416, 0.247) | 0.595 (+0.574, 0.219) | 29+29 |
+| qwen2.5:14b | 0.436 (−0.233, 0.164) | **0.696 (+0.829, 0.044)** | 28+13 |
+| qwen2.5:7b | 0.372 (−0.377, 0.071) | 0.314 (−0.434, 0.072) | 17+15 |
+| mistral-small:24b | 0.336 (−0.582, 0.017) | **0.416 (−0.308, 0.360)** | 26+17 |
+| gemma2:27b | 0.316 (−0.626, 0.010) | 0.316 (−0.626, 0.010) | 30+30 |
+
+**Corrected cross-model headline:** of the models reaching significance,
+four agree with Claude's direction (Claude, GPT-4o, Gemini, Qwen2.5-14B);
+only Gemma2-27B shows a robust reversal. Mistral-Small-24B's reversal —
+one of only two this entire project has leaned on throughout — does not
+survive. Recomputing the query-count mediation correlation with these
+clean values: r=−0.614, p=0.106, n=8 — no longer significant (was
+r=−0.758, p=0.030 originally; r=−0.746, p=0.034 after the Qwen-sample
+correction above).
+
+**Caveats on this correction:** clean-only filtering is not a random
+subsample (sessions that searched less had fewer chances to hit the quota
+wall), and n is smaller (as low as 13 for qwen2.5:14b injected). Genuinely
+fresh data, blocked tonight by Tavily's exhausted quota, is the right
+follow-up, not a permanent substitute. The Mistral/Gemma n=60 extension
+batch running on the pod when this was discovered was killed immediately
+(also contaminated, data discarded, nothing salvageable or worth keeping).

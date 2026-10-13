@@ -129,6 +129,16 @@ direction). See the full audit section for why.
 
 ## Cross-model generalization — closed-vs-open, with honest uncertainty
 
+> **⚠️ Read this before the table below.** The table and prose immediately
+> following describe this section's ORIGINAL reading, preserved as the
+> historical record of how it was arrived at. **It was superseded the same
+> night** by discovering a data-integrity issue (Tavily API corruption,
+> asymmetric across conditions) in the original collection. The corrected
+> picture: **Mistral-Small-24B's reversal does not survive clean data;
+> Qwen2.5-14B flips to significant Claude-direction; only Gemma2-27B shows
+> a robust reversal.** See "Cross-model data-integrity correction" below —
+> read that section for the actual current claim.
+
 Replicated Task 1's design (renewable energy, real Tavily search, n=30/condition)
 on five open-weight models via Ollama across three families (Qwen 7b/14b/32b,
 Gemma2-27b, Mistral-Small-24b) and two other closed frontier models (GPT-4o,
@@ -188,6 +198,62 @@ most useful next experiment, more useful than a new model or family. Llama-
 instance's storage. Full data and analysis: local only (not in this repo —
 see the project's research notes), same handling as the rest of the
 exploratory cross-model work.
+
+---
+
+## Cross-model data-integrity correction — the biggest finding of the night
+
+While trying to collect MORE cross-model data overnight, Tavily's API
+returned "exceeds your plan's set usage limit" on every request. Checking
+whether this had silently affected the ORIGINAL n=30 collection above (not
+just tonight's new attempts) found that it had: **5 of 7 non-Claude files
+contain search-error observations** (the agent getting literal error text
+instead of real search results), from 1.2% up to 15% of observations.
+Claude's own data (Tasks 1-3) is 100% clean — the paper's primary result
+is untouched. But for **3 models, the belief_injected condition was hit
+asymmetrically harder than neutral**: qwen2.5:14b (17.8% vs 3.8%),
+mistral-small:24b (8.9% vs 3.3%), GPT-4o (7.8% vs 0%).
+
+This matters mechanically, not just statistically: an agent fed repeated
+error text instead of real search results has nothing new to branch into,
+so it repeats itself — **error-contaminated sessions show dramatically
+lower vocab_breadth than clean ones** (AUC=0.061 across the pooled data,
+p<0.0001, n=347 clean / 73 contaminated). An asymmetric confound this large,
+concentrated in the injected condition, can manufacture or inflate an
+apparent "reversal" with nothing to do with belief injection.
+
+**Recomputing each model using only zero-error sessions:**
+
+| Model | Original AUC (d) | Clean-only AUC (d) | n (clean) | Changed? |
+|---|---|---|---|---|
+| GPT-4o | 0.741 (+0.963) | **0.855 (+1.644)** | 30+23 | Stronger, same direction |
+| Gemini 2.5 Flash | 0.669 (+0.688) | 0.669 (+0.688) | 30+30 | Unchanged (0% contaminated) |
+| qwen2.5:32b | 0.588 (+0.416) | 0.595 (+0.574) | 29+29 | No material change, still n.s. |
+| qwen2.5:14b | 0.436 (−0.233) | **0.696 (+0.829), p=0.044** | 28+13 | **Flips to significant Claude-direction** |
+| qwen2.5:7b | 0.372 (−0.377) | 0.314 (−0.434) | 17+15 | No material change, still n.s. |
+| mistral-small:24b | 0.336 (−0.582), p=0.017 | **0.416 (−0.308), p=0.360** | 26+17 | **Loses significance entirely** |
+| gemma2:27b | 0.316 (−0.626), p=0.010 | 0.316 (−0.626), p=0.010 | 30+30 | Unchanged — robust |
+
+**The corrected headline: of the models that reach significance, four
+agree with Claude's direction (Claude, GPT-4o, Gemini, Qwen2.5-14B) and
+only ONE (Gemma2-27B) shows a robust reversal** — not "closed-vs-open,
+two open-weight reversals" as reported throughout this README until
+tonight. Mistral's reversal, one of only two this whole project has
+leaned on, does not survive. The query-count mediation correlation
+proposed as a partial mechanism for the split is directionally consistent
+across all three data versions (r=−0.758 → −0.746 → −0.614) but loses
+significance with the fully corrected numbers (p=0.106, n=8) — now a
+plausible, unconfirmed idea, not a measured finding.
+
+**Honest limits on this correction itself:** clean-only filtering isn't a
+random subsample (sessions that searched less had fewer chances to hit
+the quota wall, so the clean subset may skew toward lower-search-count
+sessions), and the reduced n (as low as 13) makes these estimates less
+precise than the originals. Genuinely fresh, uncontaminated data — blocked
+tonight by Tavily's quota — is the right follow-up, not a permanent
+replacement for this analysis. Script:
+`experiments/agentdrift_transfer/analyze_clean_only.py` (paths point to
+the local-only raw data location and need adjusting to re-run elsewhere).
 
 ---
 
@@ -477,4 +543,5 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Injection-strength boundary mapped: weak/medium/strong — non-monotonic, medium is the peak
 - ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
 - ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
-- ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound; cross-model length-normalization reclassifies 2/5 open-weight models to significant Claude-direction; query-count reduction significantly predicts vocab_breadth increase across models (r=−0.758, p=0.030, n=8) — a partial, measurable mediator for the closed-vs-open question, with Gemma as the clear exception. See dedicated section above and paper §5.4/§5.6/§5.7/§6.1/§6.3/Conclusion.
+- ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound. See paper §5.4/§5.6.
+- ✅ **Cross-model data-integrity correction (biggest finding of the night):** original collection partially corrupted by a Tavily API quota failure, asymmetric across conditions for 3 models. Clean-data recompute: Mistral-Small-24B's reversal does not survive (p=0.360); Qwen2.5-14B flips to significant Claude-direction (p=0.044); only Gemma2-27B remains a robust reversal. Corrected headline: 4 of 5 significant models agree with Claude, 1 (Gemma) is a genuine isolated exception — not the "closed-vs-open, two reversals" picture reported everywhere until tonight. Query-count mediation correlation loses significance with clean data (p=0.106). See dedicated section above and paper §5.7/Abstract/Contributions/Conclusion.
