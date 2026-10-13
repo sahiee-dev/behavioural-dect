@@ -262,6 +262,16 @@ Gemini n=60+60 (clean both rounds), **AUC=0.641, 95% CI [0.541, 0.737],
 p=0.007**. Both roughly double-powered now and still clearly significant —
 removes the "small filtered sample" caveat for these two specifically.
 
+**Mistral-Small-24B — the single biggest open question after the
+correction — is now resolved, not just "confirming."** Collected 60 more
+runs/condition and combined with the original clean points: **n=73+57,
+AUC=0.5119, 95% CI [0.4099, 0.6160], d=−0.042, p=0.816.** Dead center on
+chance, tight CI straddling 0.5. Not a reversal, not Claude-direction —
+a genuine, well-powered null. The original "significant reversal" was
+contamination, full stop; it wasn't a real smaller effect the small
+clean sample just couldn't see. Mistral belongs with the inconclusive
+Qwen points now, not anywhere near Gemma's robust reversal.
+
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
 the quota wall, so the clean subset may skew toward lower-search-count
