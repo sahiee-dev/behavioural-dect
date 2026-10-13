@@ -245,6 +245,15 @@ across all three data versions (r=−0.758 → −0.746 → −0.614) but loses
 significance with the fully corrected numbers (p=0.106, n=8) — now a
 plausible, unconfirmed idea, not a measured finding.
 
+**Independently corroborated with semantic_breadth** (the embedding-based
+feature from above, recomputed clean-only on cross-model data,
+`semantic_diversity_crossmodel.py`): Qwen2.5-14B's reclassification holds
+up semantically too (AUC=0.772, p=0.005); Mistral's non-significance holds
+up too (AUC=0.447, p=0.561); Gemma's reversal is even stronger semantically
+(AUC=0.136 vs. 0.316 lexically) — not a surface-lexical artifact at all.
+Two independent features, one immune to the length confound entirely, now
+agree on the corrected picture.
+
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
 the quota wall, so the clean subset may skew toward lower-search-count
