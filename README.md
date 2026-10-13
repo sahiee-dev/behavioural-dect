@@ -297,12 +297,14 @@ any model's classification needed the same scrutiny:
 | qwen2.5:7b | n.s. reversed trend, AUC=0.314 | sig, AUC=0.728 | **Disagree** |
 | gemma2:27b | **sig reversed**, AUC=0.316 | **sig Claude-direction**, AUC=0.634 | **Disagree** |
 
-**5 of 7 non-Claude models are session-reproducible, and every one of
-them (where any effect shows up) agrees with Claude. 2 models (Gemma
-severely, Qwen7b more mildly) show a real effect that changes sign
-between independent collections weeks apart — not a reversal, not a
-null, genuinely unresolved.** No cross-model point in this entire
-investigation has session-stable evidence of a reversal. "Closed vs.
+**5 of 7 non-Claude models are session-reproducible at this point in the
+investigation** (see further below for a sixth correction that changes
+one of these five), **and every one of them (where any effect shows up)
+agrees with Claude. 2 models (Gemma severely, Qwen7b more mildly) show
+a real effect that changes sign between independent collections weeks
+apart — not a reversal, not a null, genuinely unresolved at this point.**
+No cross-model point in this entire investigation has session-stable
+evidence of a reversal. "Closed vs.
 open," "two robust reversals," and even "Gemma is the one thing we're
 sure about" (stated a few hours earlier the same night) are all
 retracted by this check. We don't have a mechanistic explanation for
@@ -316,7 +318,7 @@ opposite directions.**
 
 ---
 
-## Final resolution: a third session for Gemma and Qwen2.5-7B
+## Third-session resolution for Gemma and Qwen2.5-7B (superseded below — see "One more correction")
 
 Ran one more independent n=30 session for each of the two unresolved
 models — the single most informative thing left to do, since two data
@@ -337,13 +339,16 @@ but agrees in direction with session 2.** 2 of 3 sessions now trend
 Claude-direction. Pooling all three: **AUC=0.619, 95% CI [0.528, 0.708],
 p=0.011, n=76+74 — now significant.**
 
-**Final, resolved cross-model picture, replacing every earlier version
-stated tonight: of 7 non-Claude models, 5 show a significant,
-reproducible Claude-direction effect (GPT-4o, Gemini, Qwen2.5-14B,
-Qwen2.5-32B, Qwen2.5-7B); 2 show a genuine, reproducible null
-(Mistral-Small-24B, Gemma2-27B); 0 show a real reversal.** "Closed vs.
-open," both individual "robust reversal" claims, and "two models
-unresolved" are all retracted by this final check.
+**Resolved picture at this point, replacing every earlier version stated
+up to here: of 7 non-Claude models, 5 show a significant, reproducible
+Claude-direction effect (GPT-4o, Gemini, Qwen2.5-14B, Qwen2.5-32B,
+Qwen2.5-7B); 2 show a genuine, reproducible null (Mistral-Small-24B,
+Gemma2-27B); 0 show a real reversal.** "Closed vs. open," both
+individual "robust reversal" claims, and "two models unresolved" are
+all retracted by this check. **This was not yet the actual final
+state — a parsing-bug check immediately afterward (see "One more
+correction" below) retracts Qwen2.5-14B specifically, changing the
+tally to 4/7 significant, 3/7 null.**
 
 **One specific finding survives and is worth keeping:** Gemma2-27B
 shows one of the largest query-count reductions of any model tested
