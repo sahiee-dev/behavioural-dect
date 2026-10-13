@@ -254,6 +254,14 @@ up too (AUC=0.447, p=0.561); Gemma's reversal is even stronger semantically
 Two independent features, one immune to the length confound entirely, now
 agree on the corrected picture.
 
+**Update: found a working backup Tavily key and got genuinely fresh data
+for the two closed non-Claude models**, not just a filtered convenience
+subsample. 30 more clean runs/condition each, combined with the original
+clean points: GPT-4o n=60+50, **AUC=0.823, 95% CI [0.739, 0.898], p<1e-5**;
+Gemini n=60+60 (clean both rounds), **AUC=0.641, 95% CI [0.541, 0.737],
+p=0.007**. Both roughly double-powered now and still clearly significant —
+removes the "small filtered sample" caveat for these two specifically.
+
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
 the quota wall, so the clean subset may skew toward lower-search-count
