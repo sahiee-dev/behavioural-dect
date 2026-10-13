@@ -73,3 +73,37 @@ effect. This is consistent with Task 2's reversal being driven by the
 templated-task structure itself (both conditions converge to the same
 query template) rather than a clean length-vs-diversity trade-off like
 Task 1's.
+
+## Qwen correction: 3x sample did not confirm the n=30 reclassification (overnight follow-up)
+
+Collected 60 additional runs/condition for all three Qwen models (n=30→90
+total/condition) specifically to test whether the Guiraud/MATTR-based
+reclassifications reported above were real or small-sample noise. Raw
+data stays local-only per project convention (`~/Desktop/silentdrop/evaluation/crossover_bd/n30_rerun/batch2_overnight/`,
+not in this repo); `analyze_extended_qwen.py` and `extended_qwen_results.json`
+here are the analysis script and aggregate results only (paths inside the
+script point to the local-only location and won't resolve if run from here
+without adjustment).
+
+**Result: Qwen2.5-32B's reclassification did not replicate.** Guiraud AUC
+fell from 0.886 (n=30, significant) to 0.568 (n=90, p=0.116, not
+significant) — regression to the mean for what was substantially a
+small-sample artifact. qwen2.5:7b's raw vocab_breadth point estimate even
+flipped sign between n=30 (AUC=0.363) and n=90 (AUC=0.563). None of the 9
+new tests (3 models x {raw, Guiraud, MATTR}) survive Holm-Bonferroni
+correction except qwen2.5:14b's MATTR result — which is the one already
+flagged as carrying a known window-calibration artifact (d≈0 with a
+significant AUC, both at n=30 and n=90).
+
+**The cross-model query-count mediation correlation survives this
+correction essentially unchanged:** r=−0.746 (p=0.034) using the updated
+n=90 Qwen effect sizes, versus r=−0.758 (p=0.030) with the original n=30
+values. The mediation finding does not depend on the specific Qwen
+reclassification that is now retracted.
+
+**Lesson applied, not just stated:** a surprising small-n robustness-check
+result (the Guiraud/MATTR reclassification) was treated as provisional and
+tested against more data in the same session, rather than left standing.
+It didn't hold up, and that correction is reported in the same place as
+the original finding — paper_draft.md §5.7 and Conclusion, both updated
+same night.

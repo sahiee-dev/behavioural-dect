@@ -334,9 +334,22 @@ Gemma2-27B's reversal is confirmed and strengthens. Diverges beyond that
 (flags qwen2.5:7b as significant where Guiraud doesn't; qwen2.5:14b gives an
 internally inconsistent result, likely a window-size calibration issue given
 that model's query text ranges 17-1,234 tokens/run) — reported honestly
-rather than cherry-picking the confirming method. Net: confident about 3 of
-5 open-weight reclassifications surviving a second check; the remaining 2
-Qwen points stay unresolved for a now-specific, documented reason.
+rather than cherry-picking the confirming method.
+
+**Correction, same night: tripled the Qwen sample (n=30→90/condition) to
+test the reclassifications directly, and Qwen2.5-32B's did not survive.**
+Its Guiraud AUC fell from 0.886 (n=30, significant) to 0.568 (n=90, not
+significant) — a small-sample artifact, confirmed by actually collecting
+more data rather than assumed. qwen2.5:7b's raw vocab_breadth point
+estimate even flipped sign between samples. Mistral-Small-24B's
+reclassification wasn't re-tested and stands. **The cross-model
+query-count mediation correlation survives this correction essentially
+unchanged (r=−0.746, p=0.034 vs. the original r=−0.758, p=0.030)** — it
+doesn't depend on the specific result that's now retracted. Script:
+`analyze_extended_qwen.py`; raw data stays local-only per project
+convention. Net honest state: only Gemma2-27B's open-weight reclassification
+is now confident; Qwen remains null even at 3x the power (itself
+informative), Mistral's status is unverified at the larger sample.
 
 Also computed (not just recommended) multiple-comparisons correction on the
 8 cross-model p-values: Benjamini-Hochberg preserves "5/8 significant";
