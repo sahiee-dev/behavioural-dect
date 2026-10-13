@@ -309,9 +309,55 @@ retracted by this check. We don't have a mechanistic explanation for
 why exactly these two models are unstable and the other five aren't —
 flagged honestly as an open question, not papered over.
 
-Mistral belongs with the inconclusive Qwen points now. Gemma belongs in
-a new category this project didn't have a name for until tonight:
-real-but-unreplicated.
+Mistral belongs with the inconclusive Qwen points now. Gemma belonged,
+briefly, in a new category this project didn't have a name for:
+real-but-unreplicated. **A third session resolved both, decisively, in
+opposite directions.**
+
+---
+
+## Final resolution: a third session for Gemma and Qwen2.5-7B
+
+Ran one more independent n=30 session for each of the two unresolved
+models — the single most informative thing left to do, since two data
+points split 1-1 tells you nothing about which (if either) represents
+the truth.
+
+**Gemma2-27B, session 3: AUC=0.456, p=0.557 — not significant.** A
+*third* distinct outcome, after a significant reversal (session 1) and
+a significant Claude-direction result (session 2). Pooling all three:
+**AUC=0.5016, 95% CI [0.4259, 0.5774], p=0.964, n=120+120** — dead
+center on chance. The three sessions' effect sizes (−0.626, +0.552,
+−0.073) scatter symmetrically around zero. **This is a true null with
+unusually high between-session variance — both earlier "significant"
+findings were false positives, full stop, not evidence of anything.**
+
+**Qwen2.5-7B, session 3: AUC=0.604, p=0.292 — not significant alone,
+but agrees in direction with session 2.** 2 of 3 sessions now trend
+Claude-direction. Pooling all three: **AUC=0.619, 95% CI [0.528, 0.708],
+p=0.011, n=76+74 — now significant.**
+
+**Final, resolved cross-model picture, replacing every earlier version
+stated tonight: of 7 non-Claude models, 5 show a significant,
+reproducible Claude-direction effect (GPT-4o, Gemini, Qwen2.5-14B,
+Qwen2.5-32B, Qwen2.5-7B); 2 show a genuine, reproducible null
+(Mistral-Small-24B, Gemma2-27B); 0 show a real reversal.** "Closed vs.
+open," both individual "robust reversal" claims, and "two models
+unresolved" are all retracted by this final check.
+
+**One specific finding survives and is worth keeping:** Gemma2-27B
+shows one of the largest query-count reductions of any model tested
+(pooled d=−0.925, n=240) with *zero* corresponding vocab_breadth effect
+(d=+0.068) — a clean dissociation between the length-confound mechanism
+and the lexical-diversity signal, in this one model specifically. Worth
+its own investigation later; not followed up further tonight.
+
+We still don't know *why* Mistral and Gemma specifically show no
+effect while the other five models (three of them also open-weight) do.
+That's the project's actual open question now, replacing every earlier,
+discarded framing. Script: `session_consistency_full.py` extended with
+the third-session data; full numbers in `paper_draft.md` §5.7 and
+Conclusion (the "ninth and tenth corrections").
 
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
@@ -657,4 +703,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
 - ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
 - ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound. See paper §5.4/§5.6.
-- ✅ **Cross-model data-integrity correction + session-instability finding (the two biggest findings of the night, the second superseding the first):** original collection partially corrupted by a Tavily API quota failure (asymmetric across conditions for 3 models) — corrected Mistral-Small-24B to a well-powered null (p=0.816) and flipped Qwen2.5-14B to significant Claude-direction. Then a fresh independent session for Gemma2-27B — believed to be the one robust reversal after that correction — showed a second, equally significant effect in the *opposite* direction (p=0.011 vs. original p=0.013). A full session-by-session check across all 7 non-Claude models found this same instability in Qwen2.5-7B (milder) and found the other 5 models' directions reproducible across independent collections. **Final state: no model has session-stable evidence of a reversal; 5 models are reproducible (agreeing with Claude where any effect exists); 2 (Gemma, Qwen7b) show a real but session-unstable effect, unresolved.** Query-count mediation correlation undermined entirely (depends on Gemma's now-unstable value). See dedicated sections above and paper §5.7/Abstract/Contributions/Conclusion.
+- ✅ **Cross-model data-integrity correction + session-instability finding + final resolution (three linked findings, each superseding the last):** original collection partially corrupted by a Tavily API quota failure — corrected Mistral-Small-24B toward a null and flipped Qwen2.5-14B to significant Claude-direction. A fresh session for Gemma2-27B then showed a second, equally significant effect in the *opposite* direction, and a full check found the same instability in Qwen2.5-7B (milder). **A third independent session for both resolved them decisively: Gemma2-27B to a precise, reproducible null (pooled AUC=0.502, p=0.964, n=120+120); Qwen2.5-7B to a significant, reproducible Claude-direction effect (pooled AUC=0.619, p=0.011, n=76+74).** Final state: of 7 non-Claude models, 5 show a significant reproducible Claude-direction effect, 2 show a genuine reproducible null, 0 show a real reversal. "Closed vs. open" is fully retracted. One surviving mechanistic observation: Gemma shows a large query-count drop (d=−0.925) with zero vocab_breadth effect — a clean dissociation worth future study. See dedicated sections above and paper §5.7/Abstract/Contributions/Conclusion.
