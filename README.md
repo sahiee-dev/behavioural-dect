@@ -269,8 +269,49 @@ AUC=0.5119, 95% CI [0.4099, 0.6160], d=−0.042, p=0.816.** Dead center on
 chance, tight CI straddling 0.5. Not a reversal, not Claude-direction —
 a genuine, well-powered null. The original "significant reversal" was
 contamination, full stop; it wasn't a real smaller effect the small
-clean sample just couldn't see. Mistral belongs with the inconclusive
-Qwen points now, not anywhere near Gemma's robust reversal.
+clean sample just couldn't see.
+
+**Gemma2-27B — the one thing this whole investigation was confident
+about — does not hold up either, and not the way Mistral's didn't.**
+Collected a fresh n=60/condition session for Gemma to put the same
+rigor on it. Result: **AUC=0.634, d=+0.552, p=0.011 — independently
+significant, in Claude's direction.** The opposite of the original
+session's AUC=0.316, d=−0.626, p=0.013 — which was *also* independently
+significant. Both sessions are real, significant effects, just with
+flipped sign. That's categorically different from Mistral (whose two
+sessions were both noisy nulls): Gemma has two genuine, significant,
+opposite-signed readings a few weeks apart.
+
+**This forced a full session-by-session check across all 7 non-Claude
+models** (`session_consistency_full.py`) — comparing original-session-alone
+vs. new-session-alone, not just pooled, since if Gemma could flip entirely,
+any model's classification needed the same scrutiny:
+
+| Model | Original session | New session | Agreement |
+|---|---|---|---|
+| GPT-4o | sig, AUC=0.855 | sig, AUC=0.791 | Agree |
+| Gemini | sig, AUC=0.669 | same direction, AUC=0.591 (n.s. alone) | Agree |
+| qwen2.5:14b | sig, AUC=0.696 | sig, AUC=0.814 | Agree |
+| qwen2.5:32b | same direction, AUC=0.595 (n.s. alone) | sig, AUC=0.802 | Agree |
+| mistral-small:24b | n.s., AUC=0.416 | n.s., AUC=0.564 | Agree (both null) |
+| qwen2.5:7b | n.s. reversed trend, AUC=0.314 | sig, AUC=0.728 | **Disagree** |
+| gemma2:27b | **sig reversed**, AUC=0.316 | **sig Claude-direction**, AUC=0.634 | **Disagree** |
+
+**5 of 7 non-Claude models are session-reproducible, and every one of
+them (where any effect shows up) agrees with Claude. 2 models (Gemma
+severely, Qwen7b more mildly) show a real effect that changes sign
+between independent collections weeks apart — not a reversal, not a
+null, genuinely unresolved.** No cross-model point in this entire
+investigation has session-stable evidence of a reversal. "Closed vs.
+open," "two robust reversals," and even "Gemma is the one thing we're
+sure about" (stated a few hours earlier the same night) are all
+retracted by this check. We don't have a mechanistic explanation for
+why exactly these two models are unstable and the other five aren't —
+flagged honestly as an open question, not papered over.
+
+Mistral belongs with the inconclusive Qwen points now. Gemma belongs in
+a new category this project didn't have a name for until tonight:
+real-but-unreplicated.
 
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
@@ -616,4 +657,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Cross-model test (5 open-weight: Qwen2.5 7B/14B/32B, Gemma2-27B, Mistral-Small-24B + 2 closed: GPT-4o, Gemini 2.5 Flash), **now with bootstrap CIs + permutation tests on every point**: 3/3 closed frontier models significant and same direction; 2/5 open-weight models (Gemma, Mistral) significantly reverse; 3/5 open-weight models (all Qwen) statistically inconclusive at n=30 — not confirmed reversals. 5/8 models total show a significant, mechanism-checked effect. Magnitude doesn't transfer even where significant (per-model calibration still needed). Next useful experiment: a larger Qwen sample, not a new model.
 - ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
 - ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound. See paper §5.4/§5.6.
-- ✅ **Cross-model data-integrity correction (biggest finding of the night):** original collection partially corrupted by a Tavily API quota failure, asymmetric across conditions for 3 models. Clean-data recompute: Mistral-Small-24B's reversal does not survive (p=0.360); Qwen2.5-14B flips to significant Claude-direction (p=0.044); only Gemma2-27B remains a robust reversal. Corrected headline: 4 of 5 significant models agree with Claude, 1 (Gemma) is a genuine isolated exception — not the "closed-vs-open, two reversals" picture reported everywhere until tonight. Query-count mediation correlation loses significance with clean data (p=0.106). See dedicated section above and paper §5.7/Abstract/Contributions/Conclusion.
+- ✅ **Cross-model data-integrity correction + session-instability finding (the two biggest findings of the night, the second superseding the first):** original collection partially corrupted by a Tavily API quota failure (asymmetric across conditions for 3 models) — corrected Mistral-Small-24B to a well-powered null (p=0.816) and flipped Qwen2.5-14B to significant Claude-direction. Then a fresh independent session for Gemma2-27B — believed to be the one robust reversal after that correction — showed a second, equally significant effect in the *opposite* direction (p=0.011 vs. original p=0.013). A full session-by-session check across all 7 non-Claude models found this same instability in Qwen2.5-7B (milder) and found the other 5 models' directions reproducible across independent collections. **Final state: no model has session-stable evidence of a reversal; 5 models are reproducible (agreeing with Claude where any effect exists); 2 (Gemma, Qwen7b) show a real but session-unstable effect, unresolved.** Query-count mediation correlation undermined entirely (depends on Gemma's now-unstable value). See dedicated sections above and paper §5.7/Abstract/Contributions/Conclusion.

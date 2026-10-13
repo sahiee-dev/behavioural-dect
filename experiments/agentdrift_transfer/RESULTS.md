@@ -108,6 +108,54 @@ It didn't hold up, and that correction is reported in the same place as
 the original finding — paper_draft.md §5.7 and Conclusion, both updated
 same night.
 
+## THE actual biggest finding of the night: Gemma's "robust reversal" is session-unstable, not confirmed
+
+After resolving Mistral (above) to a well-powered null using fresh data
+(`analyze_combined_mistral.py`), we ran the identical fresh-session check
+on Gemma2-27B, since it had been treated as the one confirmed reversal in
+the entire cross-model investigation. Result: a fresh n=60/condition
+session gives **AUC=0.634, d=+0.552, p=0.011 — independently significant,
+in Claude's direction** — versus the original session's **AUC=0.316,
+d=−0.626, p=0.013 — independently significant, reversed.** Both sessions
+are real, significant effects; they just have opposite signs. Pooling
+them (as the original data-integrity correction did) gives AUC=0.520,
+p=0.642, which looks like a null but isn't one — it's two genuine,
+opposite-signed effects canceling out.
+
+This prompted a full session-by-session consistency check across all 7
+non-Claude models (`session_consistency_check.py`, `session_consistency_full.py`):
+comparing the original (collected weeks earlier) and new (collected the
+same night) sessions independently for every model, not just pooled.
+
+| Model | Original session | New session | Agreement |
+|---|---|---|---|
+| GPT-4o | AUC=0.855, p<1e-5 (sig) | AUC=0.791, p=0.0001 (sig) | Agree |
+| Gemini | AUC=0.669, p=0.024 (sig) | AUC=0.591, p=0.228 (n.s., same dir.) | Agree |
+| qwen2.5:14b | AUC=0.696, p=0.045 (sig) | AUC=0.814, p<1e-5 (sig) | Agree |
+| qwen2.5:32b | AUC=0.595, p=0.219 (n.s., same dir.) | AUC=0.802, p=0.0002 (sig) | Agree |
+| mistral-small:24b | AUC=0.416, p=0.360 (n.s.) | AUC=0.564, p=0.305 (n.s.) | Agree (both null) |
+| qwen2.5:7b | AUC=0.314, p=0.072 (n.s., reversed trend) | AUC=0.728, p=0.0002 (sig, Claude-dir.) | **Disagree** |
+| gemma2:27b | AUC=0.316, p=0.013 (sig, reversed) | AUC=0.634, p=0.011 (sig, Claude-dir.) | **Disagree** |
+
+**Final, fully corrected cross-model picture: 5 of 7 non-Claude models
+give session-reproducible evidence (all agreeing with Claude where any
+effect exists); 2 (Gemma severely, Qwen7b more mildly) show a real
+effect that flips sign between independent collection sessions weeks
+apart.** No model in this investigation has session-stable evidence of
+a reversal. We checked for an obvious explanation (query-count pattern
+shift, parsing/harness differences, qualitatively odd queries) and found
+none — this is reported as a genuine open question, not explained away.
+The query-count mediation correlation proposed earlier in the night is
+undermined entirely by this finding, since it depended on Gemma's now-
+known-unstable original-session value as one of only 8 data points.
+
+**This retracts, explicitly, the "Gemma is the one robust exception"
+framing stated with high confidence earlier the same night** (see the
+earlier entries in this file and in `paper_draft.md`'s now-superseded
+intermediate correction). We report the retraction in the same file as
+the claim it retracts, consistent with how every other correction
+tonight was handled.
+
 ## THE biggest finding of the night: cross-model data-integrity correction
 
 While the Qwen/Mistral/Gemma extension batches above were running, Tavily's
