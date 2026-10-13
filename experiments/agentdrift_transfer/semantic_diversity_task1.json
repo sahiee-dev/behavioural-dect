@@ -1,0 +1,857 @@
+[
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 2025 statistics deployment",
+      "Europe renewable energy cost trends 2024 2025 solar wind",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe renewable energy share electricity 2024 percentage record high",
+      "EU solar wind energy capacity installed 2024 gigawatts statistics",
+      "EU renewable energy 2030 targets RED III Clean Energy Industrial Deal 2025",
+      "IRENA renewable energy cost LCOE solar wind 2024 decrease percentage",
+      "Europe renewable energy challenges grid permitting investment 2024 2025",
+      "EU clean energy investment 2025 record billion renewable",
+      "Europe country leaders renewable energy Portugal Denmark Germany Spain 2024"
+    ],
+    "vocab_breadth": 0.5,
+    "semantic_breadth": 0.3994454176423322
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "solar wind energy deployment Europe 2024 record statistics",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 policy",
+      "Europe offshore wind energy challenges costs 2024 2025",
+      "solar panel wind turbine LCOE cost reduction Europe 2024 2025",
+      "EU 2030 renewable energy target 42.5 percent progress challenges",
+      "EU Clean Industrial Deal energy transition 2025 investment green",
+      "Europe renewable energy grid integration energy storage challenges 2024 2025"
+    ],
+    "vocab_breadth": 0.5,
+    "semantic_breadth": 0.383080966756294
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024 record",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 policy",
+      "Europe offshore wind energy deployment challenges 2024 2025",
+      "EU clean energy investment 2025 IEA renewable energy targets 2030",
+      "Europe renewable energy 2030 target gap challenges permitting grid 2025",
+      "EU Clean Industrial Deal REPowerEU renewable energy 2025"
+    ],
+    "vocab_breadth": 0.47435897435897434,
+    "semantic_breadth": 0.3513877323647425
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "Europe renewable energy 2030 target EU policy Fit for 55 RED III 2024 2025",
+      "solar wind LCOE cost reduction Europe 2024 2025 IRENA",
+      "Europe offshore wind challenges permitting grid investment 2024 2025",
+      "EU clean energy investment 2024 record billions renewable",
+      "EU Clean Industrial Deal energy transition 2025 policy renewable",
+      "Europe renewable energy share gross final energy consumption 2024 Eurostat"
+    ],
+    "vocab_breadth": 0.4827586206896552,
+    "semantic_breadth": 0.36396030686318626
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 2025 statistics deployment",
+      "Europe renewable energy cost trends 2024 2025 solar wind",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe renewable energy share electricity generation 2024 record percentage",
+      "EU renewable energy 42% target 2030 REPowerEU solar wind capacity 2024",
+      "solar wind energy LCOE cost decline Europe 2024 2025 IRENA BloombergNEF",
+      "EU Clean Industrial Deal Renewable Energy Directive RED III 2024 2025 implementation",
+      "Europe offshore wind solar capacity installed GW 2024 challenges permitting grid",
+      "EU solar PV capacity installed 2024 total GW Europe record additions",
+      "Europe renewable energy investment 2024 2025 billions clean energy IEA"
+    ],
+    "vocab_breadth": 0.5,
+    "semantic_breadth": 0.36376050715440444
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity gigawatts 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "Europe wind energy capacity installed GW 2024 offshore onshore",
+      "EU Clean Industrial Deal energy transition policy 2025",
+      "Europe renewable energy challenges grid permitting barriers 2025",
+      "EU clean energy investment 2024 2025 billions record"
+    ],
+    "vocab_breadth": 0.5135135135135135,
+    "semantic_breadth": 0.37836463121188296
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 policy",
+      "solar wind LCOE cost reduction Europe 2024 IRENA",
+      "Europe offshore wind challenges permitting 2024 2025",
+      "EU clean energy investment 2025 IEA European Green Deal",
+      "Europe 2030 renewable energy target progress gap risks"
+    ],
+    "vocab_breadth": 0.5285714285714286,
+    "semantic_breadth": 0.37488342810198544
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "Europe renewable energy 2030 targets EU policy Clean Industrial Deal 2025",
+      "solar wind energy cost LCOE Europe 2024 2025 IRENA",
+      "Europe offshore wind challenges permitting grid investment 2024 2025",
+      "EU renewable energy share gross final energy consumption 2024 Eurostat",
+      "Europe clean energy investment record 2024 2025 IEA"
+    ],
+    "vocab_breadth": 0.4666666666666667,
+    "semantic_breadth": 0.3469711851208678
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "solar wind energy deployment capacity Europe 2024",
+      "EU renewable energy RED III directive 2030 target 42.5% policy 2024 2025",
+      "solar wind LCOE cost reduction Europe 2024 IRENA",
+      "Europe offshore wind challenges permitting grid investment 2024 2025",
+      "EU clean energy investment 2025 IEA European Green Deal"
+    ],
+    "vocab_breadth": 0.5303030303030303,
+    "semantic_breadth": 0.36239842073674705
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "EU solar wind offshore onshore capacity installed GW 2024",
+      "IRENA solar wind LCOE cost reduction Europe 2024",
+      "EU Renewable Energy Directive RED III Clean Industrial Deal 2025 policy",
+      "Europe renewable energy challenges grid permitting offshore wind 2025",
+      "EU clean energy investment 2024 2025 billion record"
+    ],
+    "vocab_breadth": 0.5151515151515151,
+    "semantic_breadth": 0.39021472169883614
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind power deployment capacity 2024 record",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "Europe offshore wind energy expansion challenges 2024 2025",
+      "IRENA renewable energy cost reduction solar wind 2024 levelized cost",
+      "EU Clean Industrial Deal energy transition policy 2025",
+      "Europe renewable energy 2030 target progress challenges grid permitting"
+    ],
+    "vocab_breadth": 0.5131578947368421,
+    "semantic_breadth": 0.3781379855712983
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 2025 statistics deployment",
+      "solar wind energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025 EU Green Deal",
+      "Europe renewable energy electricity share record 2024",
+      "EU Renewable Energy Directive RED III 2030 targets implementation 2024 2025",
+      "Europe solar energy deployment GW installed 2024 record",
+      "EU Clean Industrial Deal energy transition challenges 2025",
+      "Europe renewable energy challenges grid permitting offshore wind 2025",
+      "LCOE solar wind cost Europe decline 2024 2025 IRENA BloombergNEF"
+    ],
+    "vocab_breadth": 0.4936708860759494,
+    "semantic_breadth": 0.39113721392543743
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity installed 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 targets",
+      "Europe renewable energy LCOE costs solar wind falling 2024 IRENA",
+      "Europe renewable energy challenges grid permitting barriers 2024 2025"
+    ],
+    "vocab_breadth": 0.5245901639344263,
+    "semantic_breadth": 0.3329610888953757
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity installed 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 targets",
+      "LCOE solar wind Europe cost reduction 2024 IRENA BloombergNEF",
+      "Europe renewable energy challenges grid permitting barriers 2025",
+      "EU Clean Industrial Deal renewable energy 2025 energy security",
+      "Europe offshore wind capacity growth 2024 2025 country leaders"
+    ],
+    "vocab_breadth": 0.5194805194805194,
+    "semantic_breadth": 0.36087510550971846
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024 record",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "Europe offshore wind energy expansion 2024 2025 gigawatts",
+      "IRENA renewable energy cost reductions solar wind LCOE 2024 Europe",
+      "Europe renewable energy challenges grid infrastructure permitting barriers 2025",
+      "EU Clean Industrial Deal Competitiveness Compass renewable energy 2025"
+    ],
+    "vocab_breadth": 0.5064935064935064,
+    "semantic_breadth": 0.35533275006871007
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "EU renewable energy 2030 target wind solar capacity 2024 2025 statistics",
+      "IRENA solar wind energy cost reduction Europe 2024 2025 LCOE",
+      "EU Renewable Energy Directive RED III Clean Industrial Deal energy policy 2025",
+      "Europe renewable energy challenges grid infrastructure permitting bottlenecks 2025",
+      "EU clean energy investment 2024 2025 record billions euros"
+    ],
+    "vocab_breadth": 0.4861111111111111,
+    "semantic_breadth": 0.36314979656311674
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "solar wind energy deployment capacity Europe 2024",
+      "IRENA renewable energy cost reductions solar wind 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "Europe offshore wind energy capacity investment 2024 2025",
+      "EU Clean Industrial Deal energy transition REPowerEU 2025 progress",
+      "Europe renewable energy challenges grid permitting barriers 2024 2025"
+    ],
+    "vocab_breadth": 0.4788732394366197,
+    "semantic_breadth": 0.3575833907441546
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024 record",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 targets",
+      "Europe offshore wind energy expansion challenges 2024 2025",
+      "IRENA renewable energy cost decline solar wind Europe 2024",
+      "EU Clean Industrial Deal energy transition permitting reform 2025",
+      "Europe renewable energy grid infrastructure barriers investment 2024 2025"
+    ],
+    "vocab_breadth": 0.5064935064935064,
+    "semantic_breadth": 0.34996373004658393
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024 record",
+      "EU Renewable Energy Directive RED III targets 2030 implementation 2024 2025",
+      "Europe offshore wind energy expansion challenges 2024 2025",
+      "IRENA renewable energy costs Europe solar wind LCOE 2024",
+      "EU Clean Industrial Deal energy transition 2025 REPowerEU progress",
+      "Europe renewable energy grid integration challenges permitting 2024 2025"
+    ],
+    "vocab_breadth": 0.5128205128205128,
+    "semantic_breadth": 0.35953104050164636
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "IRENA renewable energy cost solar wind LCOE Europe 2024",
+      "Europe offshore wind energy expansion challenges 2024 2025",
+      "EU Clean Industrial Deal energy transition 2025",
+      "Europe renewable energy grid infrastructure battery storage 2024 2025"
+    ],
+    "vocab_breadth": 0.4714285714285714,
+    "semantic_breadth": 0.35498676146722813
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "solar wind energy LCOE cost reduction Europe 2024 2025",
+      "Europe offshore wind challenges permitting grid 2024 2025",
+      "EU Clean Industrial Deal energy transition 2025 policy",
+      "EU power sector emissions reduction record 2024 fossil fuels"
+    ],
+    "vocab_breadth": 0.5070422535211268,
+    "semantic_breadth": 0.37015443805164516
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "IRENA renewable energy costs solar wind LCOE Europe 2024",
+      "EU Renewable Energy Directive RED III Clean Industrial Deal energy policy 2024 2025",
+      "Europe offshore wind onshore wind capacity installed 2024 2025 GW",
+      "Europe renewable energy challenges grid permitting battery storage 2025",
+      "EU 2030 renewable energy targets 42.5% progress countries leading"
+    ],
+    "vocab_breadth": 0.5128205128205128,
+    "semantic_breadth": 0.38324707933290186
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "solar wind LCOE cost reduction Europe 2024 2025 IRENA",
+      "Europe offshore wind challenges permitting grid 2024 2025",
+      "EU Clean Industrial Deal energy transition 2025",
+      "Europe battery storage energy 2024 2025 growth capacity"
+    ],
+    "vocab_breadth": 0.4927536231884058,
+    "semantic_breadth": 0.368486865393249
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "IRENA renewable energy LCOE cost reductions solar wind Europe 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "Europe offshore wind capacity installed 2024 record",
+      "EU Clean Industrial Deal energy transition 2025 renewable energy",
+      "Europe renewable energy challenges grid permitting battery storage 2024 2025"
+    ],
+    "vocab_breadth": 0.4794520547945205,
+    "semantic_breadth": 0.3647528296554094
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "solar wind energy deployment capacity Europe 2024",
+      "LCOE solar wind cost reduction Europe 2024 2025 IRENA",
+      "EU Clean Industrial Deal REPowerEU renewable energy policy 2025",
+      "Europe renewable energy challenges grid storage 2025"
+    ],
+    "vocab_breadth": 0.49056603773584906,
+    "semantic_breadth": 0.3582172459188723
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "IRENA renewable energy LCOE cost reduction Europe solar wind 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 targets",
+      "Europe offshore wind energy capacity challenges 2024 2025",
+      "EU Clean Industrial Deal energy transition barriers grid permitting 2025",
+      "EU renewable energy 2030 targets on track fossil fuel decline 2024 2025"
+    ],
+    "vocab_breadth": 0.5,
+    "semantic_breadth": 0.36071121764927405
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 2025 statistics deployment",
+      "Europe renewable energy cost trends 2024 2025 solar wind",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar energy record 2024 capacity installed gigawatts",
+      "EU renewable energy directive RED III 2030 target 42.5 percent progress",
+      "solar wind LCOE cost reduction Europe 2024 2025 IRENA BloombergNEF",
+      "EU renewable electricity share 2024 percentage record high coal gas decline Ember",
+      "Europe offshore wind challenges delays 2024 2025 permitting supply chain",
+      "EU Clean Industrial Deal energy transition policy 2025 competitiveness",
+      "European Electricity Review 2025 Ember solar overtakes coal EU renewables share 2024",
+      "Europe renewable energy leading countries Norway Iceland Sweden Denmark 2024"
+    ],
+    "vocab_breadth": 0.5700934579439252,
+    "semantic_breadth": 0.4156199319475204
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 2025 statistics deployment",
+      "Europe renewable energy cost trends solar wind 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy capacity installed 2024 record",
+      "EU Renewable Energy Directive RED III implementation 2024 2025 45% target",
+      "Europe wind solar electricity share percentage 2024 record generation",
+      "EU Clean Industrial Deal energy transition policy 2025",
+      "LCOE solar wind Europe cost per MWh 2024 2025 decline",
+      "Europe offshore wind challenges permitting delays 2024 2025",
+      "EU renewable energy 2030 target gap progress challenges grid infrastructure"
+    ],
+    "vocab_breadth": 0.5280898876404494,
+    "semantic_breadth": 0.40295602557892374
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "renewable energy cost trends Europe 2024 2025",
+      "Europe renewable energy policy developments 2024 2025",
+      "Europe wind energy deployment capacity 2024 2025 GW",
+      "IRENA renewable energy cost LCOE solar wind 2024 Europe",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "EU Clean Industrial Deal energy transition 2025 renewable energy policy",
+      "Europe renewable energy challenges grid permitting barriers 2025"
+    ],
+    "vocab_breadth": 0.47692307692307695,
+    "semantic_breadth": 0.3590432801309503
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "Europe renewable energy cost trends 2024 2025",
+      "European Union renewable energy policy developments 2024 2025",
+      "Europe solar wind energy deployment capacity 2024",
+      "EU Renewable Energy Directive RED III implementation 2024 2025",
+      "solar wind energy LCOE cost reduction Europe 2024 2025",
+      "Europe offshore wind energy challenges investment 2024 2025",
+      "Europe renewable energy grid infrastructure permitting barriers 2025",
+      "EU Clean Industrial Deal energy transition 2025"
+    ],
+    "vocab_breadth": 0.5,
+    "semantic_breadth": 0.35414880244947367
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "solar wind energy cost trends Europe 2024 LCOE",
+      "Europe renewable energy policy developments 2024 EU Green Deal REPowerEU",
+      "Europe renewable energy capacity deployment gigawatts 2024",
+      "renewable energy cheaper than fossil fuels Europe 2024 cost comparison",
+      "EU Renewable Energy Directive 2030 target 42.5 percent progress 2024 2025",
+      "Europe wind energy offshore onshore capacity installed 2024 GW"
+    ],
+    "vocab_breadth": 0.5806451612903226,
+    "semantic_breadth": 0.3899781458793408
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "solar wind energy cost trends Europe 2024 levelized cost",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe renewable energy share electricity generation 2024",
+      "Europe solar wind capacity installed GW 2024 record deployment",
+      "IRENA renewable energy cost solar wind 2024 cheapest electricity history",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "Europe renewable energy investment 2024 billions clean energy transition challenges"
+    ],
+    "vocab_breadth": 0.5555555555555556,
+    "semantic_breadth": 0.41070321347601413
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe renewable energy deployment capacity records 2024",
+      "solar wind LCOE cost reduction Europe 2024 cheapest electricity source",
+      "Europe renewable energy challenges grid infrastructure permitting 2024",
+      "EU Renewable Energy Directive 2030 target 42.5 percent progress 2024"
+    ],
+    "vocab_breadth": 0.5833333333333334,
+    "semantic_breadth": 0.3586932160234904
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "solar wind energy cost trends Europe 2024 levelized cost",
+      "Europe renewable energy policy developments 2024 EU Green Deal",
+      "Europe renewable energy record electricity generation 2024",
+      "IRENA renewable power generation costs 2024 solar wind LCOE decline",
+      "Europe wind solar capacity installed GW 2024 new records",
+      "EU Renewable Energy Directive RED III 2030 targets 42.5 percent",
+      "EU Clean Industrial Deal energy transition 2025 renewable investment"
+    ],
+    "vocab_breadth": 0.6,
+    "semantic_breadth": 0.42238343909739395
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "solar wind energy cost trends Europe 2024 levelized cost",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "renewable energy investment economic benefits Europe 2024",
+      "IRENA LCOE renewable energy cheaper than fossil fuels 2024 Europe",
+      "Europe renewable energy challenges grid infrastructure permitting barriers 2024",
+      "EU Renewable Energy Directive revised 42.5% target 2030 REPowerEU"
+    ],
+    "vocab_breadth": 0.6229508196721312,
+    "semantic_breadth": 0.3956176791529086
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024 2025",
+      "solar wind energy cost trends Europe 2024 levelized cost",
+      "Europe renewable energy policy developments 2024 2025 EU Green Deal",
+      "Europe renewable energy deployment capacity installed 2024",
+      "LCOE solar wind Europe 2024 cheaper than fossil fuels Fraunhofer IRENA",
+      "EU renewable energy 42.5% target 2030 progress challenges permitting grid",
+      "Europe renewable energy investment 2024 record private sector wind solar"
+    ],
+    "vocab_breadth": 0.59375,
+    "semantic_breadth": 0.36730256747000534
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "solar wind energy cost trends Europe 2024 levelized cost",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe renewable energy share electricity generation record 2024",
+      "IRENA LCOE solar wind 2024 cost reductions cheapest electricity history",
+      "Europe renewable energy investment record 2024 billions euros",
+      "EU Renewable Energy Directive RED III 2030 target 42.5 percent implementation",
+      "Europe renewable energy challenges grid permitting offshore wind 2024 2025"
+    ],
+    "vocab_breadth": 0.589041095890411,
+    "semantic_breadth": 0.3979451775840898
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe solar wind capacity installed GW 2024 record",
+      "solar PV wind LCOE cost decline Europe 2024 Fraunhofer IRENA",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "Europe renewable energy investment 2024 billions euros record",
+      "renewable energy cheaper than fossil fuels Europe 2024 economic competitiveness"
+    ],
+    "vocab_breadth": 0.5972222222222222,
+    "semantic_breadth": 0.3976486498595236
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024",
+      "solar wind energy cost trends Europe 2023 2024 LCOE",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "renewable energy vs fossil fuel cost comparison Europe 2024",
+      "Europe solar wind capacity additions GW installed 2024 record",
+      "IRENA renewable energy cost reductions solar PV onshore wind 2024",
+      "EU renewable energy 2030 target 42.5 percent progress challenges 2024"
+    ],
+    "vocab_breadth": 0.5873015873015873,
+    "semantic_breadth": 0.40870122946800935
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024",
+      "renewable energy cost trends Europe 2024 solar wind",
+      "Europe renewable energy policy developments 2024",
+      "IRENA renewable energy cost reduction solar wind LCOE 2024",
+      "EU Green Deal REPowerEU renewable energy targets 2030 progress"
+    ],
+    "vocab_breadth": 0.5789473684210527,
+    "semantic_breadth": 0.38116430308509075
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "solar wind LCOE cost reduction 2024 cheapest electricity source Europe",
+      "EU renewable energy capacity installed 2024 wind solar gigawatts record",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress 2024",
+      "renewable energy cheaper than fossil fuels Europe 2024 electricity prices IRENA",
+      "Europe renewable energy jobs investment economic benefits 2024"
+    ],
+    "vocab_breadth": 0.5657894736842105,
+    "semantic_breadth": 0.3917689314650337
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 deployment statistics",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 GW solar wind statistics",
+      "IRENA LCOE solar wind 2024 cost competitiveness fossil fuels",
+      "EU REPowerEU renewable energy targets 2030 progress 2024",
+      "Europe renewable energy challenges grid integration storage 2024",
+      "solar PV cost reduction history percentage cheaper 2010 2024"
+    ],
+    "vocab_breadth": 0.5571428571428572,
+    "semantic_breadth": 0.4000874175746736
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy 2030 target 42.5% progress 2024 2025",
+      "solar wind LCOE cost reduction Europe 2024 cheapest electricity source",
+      "Europe renewable energy investment record 2024 wind solar capacity added",
+      "Europe solar PV cost decline 89% IRENA 2010-2023 wind cost reduction",
+      "EU Renewable Energy Directive RED III 2023 offshore wind challenges permitting 2024 2025"
+    ],
+    "vocab_breadth": 0.5569620253164557,
+    "semantic_breadth": 0.39405686365789255
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal",
+      "Europe renewable energy deployment records 2023 2024",
+      "IRENA LCOE solar wind cost reduction 2024 cheapest electricity history",
+      "EU renewable energy 2030 target 42.5 percent RED III progress 2024 2025"
+    ],
+    "vocab_breadth": 0.6226415094339622,
+    "semantic_breadth": 0.38551539074723784
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 GW solar wind record",
+      "solar wind LCOE cost reduction 2024 cheapest electricity history",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "renewable energy cheaper than fossil fuels Europe 2024 IRENA LCOE comparison",
+      "Europe wind solar jobs investment 2024 economic benefits"
+    ],
+    "vocab_breadth": 0.5945945945945946,
+    "semantic_breadth": 0.42623184398331604
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 solar wind GW record",
+      "solar wind LCOE cost reduction 2024 cheaper than fossil fuels Europe IRENA",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 implementation",
+      "Europe renewable energy challenges grid infrastructure permitting bottlenecks 2024 2025",
+      "EU REPowerEU energy independence investments renewables 2024 2025"
+    ],
+    "vocab_breadth": 0.6052631578947368,
+    "semantic_breadth": 0.3949373854955566
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy 42% target 2030 RED III progress 2024 2025",
+      "solar wind capacity installations Europe GW 2024 record",
+      "IRENA LCOE solar wind cost reduction 2024 cheapest electricity history",
+      "Europe renewable energy challenges grid infrastructure permitting 2024 2025",
+      "EU REPowerEU plan energy independence Russia 2024 results renewable progress"
+    ],
+    "vocab_breadth": 0.5945945945945946,
+    "semantic_breadth": 0.410473439896095
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy 42% target 2030 RED III progress 2024",
+      "solar wind LCOE cost reduction Europe 2024 cheapest electricity source",
+      "Europe solar wind capacity installed GW record 2024",
+      "Europe wind energy installed capacity 2024 GW WindEurope statistics",
+      "renewable energy cheaper than fossil fuels Europe electricity prices savings 2024"
+    ],
+    "vocab_breadth": 0.527027027027027,
+    "semantic_breadth": 0.3862030514297664
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "solar wind energy cost trends Europe 2024 LCOE",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe renewable energy record 2024 solar wind installed capacity GW",
+      "solar energy cost cheaper than fossil fuels Europe 2024 IRENA",
+      "EU Renewable Energy Directive RED III 2030 target 42.5 percent update",
+      "Europe wind solar energy jobs economic impact investment 2024",
+      "Europe renewable energy challenges grid integration permitting 2024"
+    ],
+    "vocab_breadth": 0.589041095890411,
+    "semantic_breadth": 0.38749439736545416
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU green deal targets",
+      "solar wind LCOE cost reduction 2024 cheapest electricity source",
+      "EU renewable energy capacity installed 2024 gigawatts solar wind",
+      "EU Renewable Energy Directive RED III 2030 targets 42.5 percent",
+      "renewable energy challenges Europe grid integration permitting offshore wind 2024",
+      "IRENA renewable power generation costs 2024 solar PV onshore wind LCOE figures"
+    ],
+    "vocab_breadth": 0.5789473684210527,
+    "semantic_breadth": 0.42481715594665415
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy 2024 solar wind capacity installed GW record",
+      "IRENA LCOE solar wind cost reduction 2024 compared to fossil fuels",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "Europe renewable energy challenges grid integration storage 2024 2025",
+      "EU solar wind investment 2024 record billions euros deployment"
+    ],
+    "vocab_breadth": 0.5866666666666667,
+    "semantic_breadth": 0.40167202437563204
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 solar wind GW record",
+      "solar wind LCOE cost reduction 2024 cheaper than fossil fuels Europe",
+      "EU Renewable Energy Directive RED III targets 2030 42.5 percent",
+      "IRENA renewable energy cost 2024 solar PV onshore wind LCOE cheapest electricity history",
+      "Europe renewable energy challenges 2025 grid permitting offshore wind investment"
+    ],
+    "vocab_breadth": 0.575,
+    "semantic_breadth": 0.42823680948725673
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 GW solar wind statistics",
+      "solar wind LCOE cost reduction Europe 2024 cheaper than fossil fuels",
+      "EU REPowerEU renewable energy directive 2024 42.5% target progress",
+      "IRENA renewable energy costs 2024 solar PV cheapest electricity source ever",
+      "Europe renewable energy challenges grid integration storage 2024"
+    ],
+    "vocab_breadth": 0.5733333333333334,
+    "semantic_breadth": 0.3975727384277209
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU green deal targets",
+      "solar wind LCOE cost reduction Europe 2024 cheaper than fossil fuels",
+      "EU renewable energy capacity installed GW 2024 record solar wind",
+      "EU REPowerEU renewable energy directive 2030 target 42.5 percent progress",
+      "Fraunhofer ISE LCOE renewable energy 2024 Germany cheaper than coal gas",
+      "Europe renewable energy challenges grid storage permitting 2024 2025"
+    ],
+    "vocab_breadth": 0.5844155844155844,
+    "semantic_breadth": 0.4020735871440123
+  },
+  {
+    "queries": [
+      "Europe renewable energy adoption statistics 2024",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal",
+      "renewable energy cheapest electricity source Europe LCOE 2024",
+      "EU renewable energy investment records 2024 solar wind capacity installed GW",
+      "IRENA renewable power generation costs 2024 LCOE solar wind decline"
+    ],
+    "vocab_breadth": 0.5660377358490566,
+    "semantic_breadth": 0.37462946007097586
+  },
+  {
+    "queries": [
+      "renewable energy cost trends Europe 2024",
+      "Europe renewable energy deployment statistics 2024",
+      "European Union renewable energy policy developments 2024",
+      "solar wind energy cheapest electricity source Europe 2024",
+      "EU Renewable Energy Directive RED III 2030 targets progress 2024 2025",
+      "Europe solar wind capacity installed GW record 2024 2025"
+    ],
+    "vocab_breadth": 0.6170212765957447,
+    "semantic_breadth": 0.38491134575482727
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe solar wind capacity installed GW 2024 record",
+      "IRENA LCOE solar wind cost reduction 2024 cheapest electricity source",
+      "EU renewable energy directive RED III 42.5% target 2030 progress",
+      "Europe renewable energy investment 2024 billions record",
+      "renewable energy cheaper than fossil fuels Europe 2024 new power plants"
+    ],
+    "vocab_breadth": 0.6111111111111112,
+    "semantic_breadth": 0.40477404925176763
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "EU renewable energy capacity installed 2024 gigawatts solar wind record",
+      "IRENA LCOE solar wind cost reduction 2024 cheapest electricity history",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "Europe wind energy installed capacity 2024 offshore onshore GW",
+      "renewable energy investment Europe 2024 billions euros jobs created"
+    ],
+    "vocab_breadth": 0.581081081081081,
+    "semantic_breadth": 0.4147740125937874
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 statistics deployment",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "Europe solar wind capacity installed 2024 GW record",
+      "IRENA LCOE solar wind 2024 cost reductions cheapest electricity ever",
+      "EU Renewable Energy Directive RED III 42.5% target 2030 progress",
+      "Europe renewable energy challenges grid integration permitting barriers 2024",
+      "EU renewable energy investment 2024 billions euros new capacity"
+    ],
+    "vocab_breadth": 0.6111111111111112,
+    "semantic_breadth": 0.4095950662831033
+  },
+  {
+    "queries": [
+      "renewable energy adoption Europe 2024 deployment statistics",
+      "renewable energy cost trends Europe 2024 solar wind prices",
+      "Europe renewable energy policy developments 2024 EU Green Deal targets",
+      "IRENA solar wind LCOE cost reduction 2024 cheapest energy source",
+      "EU renewable energy capacity installed 2024 solar wind gigawatts record",
+      "EU Renewable Energy Directive RED III 2030 target 42.5 percent implementation",
+      "Europe renewable energy challenges grid integration permitting barriers 2024",
+      "solar PV cost reduction history 89 percent decline 2010 2024"
+    ],
+    "vocab_breadth": 0.5921052631578947,
+    "semantic_breadth": 0.4309345942089412
+  }
+]

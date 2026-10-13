@@ -255,6 +255,30 @@ under each dataset's own attack.
 
 ---
 
+## Semantic diversity — an independently-measured complementary check
+
+Tested whether vocab_breadth's lexical diversity signal is corroborated by
+a completely independent measure: **semantic_breadth** (mean pairwise
+cosine distance between OpenAI `text-embedding-3-small` embeddings of a
+session's queries). Code: `experiments/agentdrift_transfer/semantic_diversity_check.py`.
+
+| Dataset | semantic_breadth AUC | vocab_breadth AUC | Pearson r |
+|---|---|---|---|
+| Task 1 (renewable energy) | 0.880 (sig.) | 0.990 | +0.687 (sig.) |
+| Task 3 (UBI) | 0.655 (n.s.) | 0.9325 | +0.189 (n.s.) |
+
+**Task 1: confirmed, not just lexical.** semantic_breadth is itself
+strongly significant and correlates with vocab_breadth — belief injection
+produces real meaning-level scatter, not just varied word choice for the
+same ideas. **Task 3: the relationship disappears** — semantic_breadth is
+weak and n.s., barely correlated with vocab_breadth, even though
+vocab_breadth itself stays strong on both. Reported honestly: the two
+signals aren't a fixed pair: this check validates vocab_breadth on Task 1
+but not in the same way on Task 3. vocab_breadth remains the more robust,
+task-general signal. Full writeup: `paper_draft.md` §5.9.
+
+---
+
 ## Full length-confound audit — every dataset in this repo
 
 Extended the length check above to Task 2, Task 3, both injection-strength
