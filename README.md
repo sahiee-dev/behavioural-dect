@@ -368,6 +368,37 @@ task-general signal. Full writeup: `paper_draft.md` §5.9.
 
 ---
 
+## Task-relevant vs. task-irrelevant belief injection
+
+Every result in this repo uses **task-relevant** injection (the false
+belief is about the thing being researched). Jeong et al. — this
+project's own foundational citation — actually study **task-irrelevant**
+injection (an unrelated belief, e.g. Mars colonization risk, while
+researching something else). Tested this directly for the first time:
+same TASK/baseline as Task 1, but the injected belief is now about Mars
+colonization risk instead of renewable energy. Code:
+`experiments/agentdrift_transfer/injector_task_irrelevant.py` +
+`task_irrelevant_analysis.py`.
+
+| Comparison | AUC | d | p |
+|---|---|---|---|
+| vocab_breadth | 0.989 | +3.337 | <1e-5 |
+| n_queries alone | 0.0022 | −4.496 | <1e-5 |
+| Guiraud's index | **0.186 (reversed)** | −1.142 | <1e-5 |
+
+**Raw vocab_breadth looks like a near-perfect transfer (0.989 ≈ Task 1's
+0.990) — for the wrong reason.** Task-irrelevant-injected agents search
+dramatically less (mean 5.80 vs. 8.97 queries, almost no overlap) — more
+than double the query-count drop of task-relevant injection. Guiraud's
+index reverses the result entirely, same pattern as AgentDrift and
+ATBench, not Task 1/3's own data. **Honest scope statement, now tested
+rather than assumed: vocab_breadth is validated for task-relevant belief
+injection. It does not provide good evidence for detecting Jeong et al.'s
+own task-irrelevant paradigm** — the raw transfer-looking number is
+almost entirely the length confound. Full writeup: `paper_draft.md` §5.10.
+
+---
+
 ## Full length-confound audit — every dataset in this repo
 
 Extended the length check above to Task 2, Task 3, both injection-strength
