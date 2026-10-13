@@ -299,6 +299,20 @@ see paper_draft.md §5.8 for the full writeup, including the interesting part
 (failed attacks and hard negatives, which don't add extra hijack steps, show
 the *originally expected* direction, AUC≈0.80).
 
+**A third benchmark, same night: ATBench** (arXiv:2604.02022, public,
+`huggingface.co/datasets/AI45Research/ATBench` — a different author group
+and design than AgentDrift, closer to this project's own stated-instruction
+mechanism). Benign (n=250) vs. direct/indirect-prompt-injection (n=167)
+trajectories: raw vocab_breadth is significantly positive (AUC=0.702,
+d=+0.717, p<1e-5) — looks like a clean transfer — but Guiraud's index
+**reverses it** (AUC=0.349) and stays strongly confounded with length
+(r=+0.738). Same pattern as AgentDrift, not Claude's own data: a
+positive-looking raw number that's substantially the length confound.
+**Two of two external benchmarks tested this way don't support real
+transfer once length-normalized** — strengthens the claim that vocab_breadth
+is validated specifically for the mechanism it was built on, not a
+general-purpose feature. Script: `experiments/agentdrift_transfer/atbench_test.py`.
+
 **We then ran the same length-covariate check on the original Claude Task 1
 data (the mechanism vocab_breadth was actually built for), to see whether its
 own AUC=0.990 has the same problem:**
