@@ -411,6 +411,15 @@ outside review. Lesson for next time: **spot-check the raw extracted
 text for implausible summary statistics before trusting any cross-model
 number, not just the final AUC.**
 
+**One more observation, zero additional cost to note:** within the Qwen
+family alone, the final pattern by size is non-monotonic — 7B shows a
+real effect (AUC=0.705), 14B shows none (AUC=0.528), 32B shows a real
+effect again (AUC=0.688). A family going effect → null → effect as size
+increases doesn't fit a simple "bigger/smaller is more Claude-like"
+story, and it echoes this project's own earlier non-monotonic finding
+for injection *strength* (medium detectable, weak/strong not). No
+explanation offered — just flagging the parallel.
+
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
 the quota wall, so the clean subset may skew toward lower-search-count
