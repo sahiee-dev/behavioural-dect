@@ -420,6 +420,28 @@ story, and it echoes this project's own earlier non-monotonic finding
 for injection *strength* (medium detectable, weak/strong not). No
 explanation offered — just flagging the parallel.
 
+---
+
+## Eighth model: Llama-3.1-8B (added after the main investigation closed)
+
+A fourth distinct open-weight family, never previously tested — added
+the morning after the eleven-correction cross-model investigation above
+had already reached its final state. Same design as every other point
+(n=30/condition, real Tavily search, the now-fixed harness).
+
+**AUC=0.5011, 95% CI [0.3550, 0.6494], d=−0.080, p=0.985 — almost
+exactly chance.** Clean single session (0% Tavily/parsing contamination).
+Reported as a single-session result, not a settled one — this same
+investigation's Gemma2-27B finding showed a single clean-looking session
+can still be misleading; Llama hasn't been independently re-collected
+yet to check for the same instability. With that caveat: it joins the
+open-weight null group (Mistral, Gemma, Qwen2.5-14B), bringing the
+open-weight tally to 4 null / 2 significant — a weak lean toward
+open-weight models more often showing nothing, not a clean split, given
+the Qwen family alone splits both ways. Script: `llama_analysis.py`.
+
+---
+
 **Honest limits on this correction itself:** clean-only filtering isn't a
 random subsample (sessions that searched less had fewer chances to hit
 the quota wall, so the clean subset may skew toward lower-search-count
@@ -765,3 +787,4 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Cross-mechanism transfer test (AgentDrift, public benchmark, external payload hijack vs. this project's belief-prefill): **negative/mixed, reported honestly** — signal significantly reverses on successful hijacks (AUC=0.432), caused by a now-confirmed TTR length confound (r=−0.55); recovers expected direction on failed attacks and hard negatives (AUC≈0.80). See dedicated section above and paper §5.8.
 - ✅ Full length-confound audit, every dataset (Task 2, Task 3, weak/strong injection, all 8 cross-model points): Task 3 is the cleanest result in the repo; Task 2's reversal and both weak/strong's raw gains are substantially/entirely the confound. See paper §5.4/§5.6.
 - ✅ **Cross-model investigation, fully resolved after four linked corrections in one night:** (1) a Tavily API quota failure partially corrupted the original collection — corrected Mistral-Small-24B toward a null and flipped Qwen2.5-14B to significant Claude-direction; (2) a fresh session for Gemma2-27B then showed a second, equally significant effect in the *opposite* direction, and the same instability showed up milder in Qwen2.5-7B; (3) a third independent session for both resolved them decisively: Gemma2-27B to a precise, reproducible null (pooled AUC=0.502, p=0.964, n=120+120), Qwen2.5-7B to a significant, reproducible Claude-direction effect; (4) a parsing-bug check (the same runaway-generation issue already fixed for Gemini, never checked elsewhere) then retracted Qwen2.5-14B's significant finding specifically. **Final state: of 7 non-Claude models, 4 (GPT-4o, Gemini, Qwen2.5-32B, Qwen2.5-7B) show a significant reproducible Claude-direction effect; 3 (Mistral, Gemma, Qwen2.5-14B) show a genuine reproducible null; 0 show a real reversal.** "Closed vs. open" is fully retracted. One surviving mechanistic observation: Gemma shows a large query-count drop (d=−0.925) with zero vocab_breadth effect — a clean dissociation worth future study. See dedicated sections above and paper §5.7/Abstract/Contributions/Conclusion.
+- ✅ **Eighth model, Llama-3.1-8B, added after the above closed:** AUC=0.501, p=0.985, clean null, single session (not yet replicated). A fourth distinct open-weight family; joins the open-weight null group. See dedicated section above.
