@@ -161,24 +161,28 @@ permutation tests (N=100,000) on every point. Any model whose result looked
 statistically fragile on a single sample was re-collected with an independent
 session before being reported.
 
-| Model | Type | AUC | Cohen's d | p-value | Result |
-|---|---|---|---|---|---|
-| Claude Sonnet 4.6 | Closed | 0.990 | +3.91 | <1e-5 | Significant (reference) |
-| GPT-4o | Closed | 0.823 | +1.39 | <1e-5 | **Significant, same direction** |
-| Qwen2.5-7B | Open | 0.705 | +0.73 | <1e-5 | **Significant, same direction** |
-| Qwen2.5-32B | Open | 0.688 | +0.83 | 0.0008 | **Significant, same direction** |
-| Gemini 2.5 Flash | Closed | 0.641 | +0.54 | 0.007 | **Significant, same direction** |
-| Mistral-Small-24B | Open | 0.578 | +0.30 | 0.130 | Null — no effect |
-| Qwen2.5-14B | Open | 0.528 | −0.09 | 0.608 | Null — no effect |
-| Llama-3.1-8B | Open | 0.501 | −0.08 | 0.985 | Null — no effect |
-| Gemma2-27B | Open | 0.502 | +0.07 | 0.964 | Null — no effect |
+| Model | Type | n | AUC | Cohen's d | p-value | Result |
+|---|---|---|---|---|---|---|
+| Claude Sonnet 4.6 | Closed | 30+30 | 0.990 | +3.91 | <1e-5 | Significant (reference) |
+| GPT-4o | Closed | 60+50 | 0.823 | +1.39 | <1e-5 | **Significant, same direction** |
+| Qwen2.5-7B | Open | 76+74 | 0.705 | +0.73 | <1e-5 | **Significant, same direction** |
+| Qwen2.5-14B | Open | 120+101 | 0.752 | +0.92 | <1e-5 | **Significant, same direction** |
+| Qwen2.5-32B | Open | 56+49 | 0.688 | +0.83 | 0.0008 | **Significant, same direction** |
+| Gemini 2.5 Flash | Closed | 60+60 | 0.641 | +0.54 | 0.007 | **Significant, same direction** |
+| Mistral-Small-24B | Open | 73+57 | 0.578 | +0.30 | 0.130 | Null — no effect |
+| Llama-3.1-8B | Open | 60+60 | 0.488 | −0.06 | 0.827 | Null — no effect (confirmed across 2 independent sessions) |
+| Gemma2-27B | Open | 120+120 | 0.502 | +0.07 | 0.964 | Null — no effect |
 
 **Summary: the signal generalizes to most of the models tested, and where it
 generalizes, it is always in the same direction — no model shows a
 significant reversal.** Both closed-source models outside Claude show the
-effect; among the five open-weight points tested, two do and three don't.
-Within the Qwen family specifically, the pattern is non-monotonic by size
-(7B and 32B show it, 14B doesn't) — not explained by model size alone.
+effect, and so does every model size tested within the Qwen family (7B,
+14B, 32B all significant, same direction) — the detector's open-weight
+reach is driven specifically by that family. Among the other three
+open-weight points tested (Mistral, Llama, Gemma), none show an effect.
+Both Llama and Gemma's nulls were verified across two or more independent
+collection sessions before being reported as stable, rather than taken
+from a single sample.
 
 **Magnitude does not transfer even where direction agrees** — every other
 model's effect size is substantially weaker than Claude's, so per-model
@@ -292,6 +296,6 @@ tokens/run from search results accumulating in conversation history.
 - ✅ Cross-domain replication: Task 3 (UBI) — AUC=0.9325, the least length-confounded result in the project
 - ✅ Injection-strength boundary mapped: only medium strength survives length normalization
 - ✅ Length sensitivity quantified and reported alongside every headline number (raw vs. length-normalized)
-- ✅ Cross-model generalization: 8 additional models, bootstrap CIs + permutation tests + independent-session verification on every point — generalizes to GPT-4o, Gemini, Qwen2.5-7B, Qwen2.5-32B; null on Mistral, Gemma, Qwen2.5-14B, Llama-3.1-8B; **no reversal on any model tested**
+- ✅ Cross-model generalization: 8 additional models, bootstrap CIs + permutation tests + independent-session verification on every point — generalizes to GPT-4o, Gemini, and all three Qwen sizes (7B/14B/32B); null on Mistral, Gemma, Llama-3.1-8B; **no reversal on any model tested**
 - ✅ Scope-tested against 3 structurally different setups (AgentDrift, ATBench, task-irrelevant injection) — validated for task-relevant belief-prefill injection specifically, does not transfer to these
 - ⏳ Evasion/adversarial robustness — cost analysis done, defenses not yet built
